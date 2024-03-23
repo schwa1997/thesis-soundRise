@@ -1,7 +1,5 @@
 "use client";
 
-import SunSleep from "../../components/icons/sunSleep";
-import SunAwake from "../../components/icons/sunAwake";
 import { DescriptionCard } from "@/components/component/descriptionCard";
 import { DescriptionCard2 } from "@/components/component/descriptionCard2";
 

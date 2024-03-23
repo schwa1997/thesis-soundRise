@@ -5,6 +5,17 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { GitHub, ModeNight, WbSunny } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -14,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="sticky top-0 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg z-50 transition-all duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4  w-full ">
+    <nav className="sticky z-40 top-0 bg-white dark:bg-black dark:bg-opacity-50 bg-opacity-20 backdrop-filter backdrop-blur-lg transition-all duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4  w-full ">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <div className="mr-4">
@@ -31,26 +42,36 @@ const Header = () => {
             </Link>
           </div>
         </div>
+
         <div className="hidden sm:flex items-center">
-          <Link
-            href="./"
-            className="hover:drop-shadow-lg text-lg font-semibold"
-          >
-            HOME
-          </Link>
-          <Link href="./about" className="ml-4 text-lg font-semibold">
-            ABOUT
-          </Link>
-          <Link href="./play" className="ml-4 text-lg font-semibold">
-            RUN APP
-          </Link>
-          <Link
-            href="https://github.com/zGiada/soundrise-application"
-            target="_blank"
-            className="ml-4 text-lg font-semibold"
-          >
-            <GitHub />
-          </Link>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Home
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Sound Rise App</NavigationMenuTrigger>
+                <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                  <Link href="/soundRise" className="hover:text-purple-500">
+                    Play SoundRise
+                  </Link>
+                  <Link href="/soundRise" className="hover:text-purple-500">
+                    About
+                  </Link>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          <GitHub />
+
           <div>
             {theme === "dark" ? (
               <Button
@@ -69,10 +90,10 @@ const Header = () => {
             )}
           </div>
         </div>
-        <div className="sm:hidden ">
+        <div className="sm:hidden  z-50">
           <button
             onClick={toggleMenu}
-            className="text-white focus:outline-none"
+            className="text-purple-500 focus:outline-none"
           >
             {menuOpen ? (
               <svg

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import SunSleep from "../../components/icons/sunSleep";
-import SunAwake from "../../components/icons/sunAwake";
+import SunSleep from "../icons/sunSleep";
+import SunAwake from "../icons/sunAwake";
 import { Face } from "@mui/icons-material";
 
 interface DescriptionCardProps {
@@ -31,14 +31,14 @@ export const DescriptionCard: FC<DescriptionCardProps> = ({
         {icon === "SunSleep" ? (
           <SunSleep
             svgColor={icoColor}
-            rad={25}
+            rad={20}
             yCoordinate={-0}
             heightSpaceSun={"12vh"}
           />
         ) : icon === "SunAwake" ? (
           <SunAwake
             svgColor={icoColor}
-            rad={25}
+            rad={20}
             yCoordinate={-0}
             heightSpaceSun={"12vh"}
           />
