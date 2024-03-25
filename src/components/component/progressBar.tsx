@@ -24,7 +24,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 
   return (
     <div className="">
-      <p className="">{title}</p>
+      <p className="px-2 py-1 text-left text-xs font-medium uppercase tracking-wider">{title}</p>
       <div className="flex items-center justify-between rounded-lg h-10 px-2">
         <div className="relative h-6 w-full rounded-full overflow-hidden">
           <div

@@ -6,9 +6,23 @@ import React, { useState, useEffect } from "react";
 import SunAwake from "../../../components/icons/SunAwake";
 import SunSleep from "../../../components/icons/SunSleep";
 import { ProgressBar } from "../../../components/component/progressBar";
-import NoteIndicator from "../../../components/component/noteIndicator";
+import ElementIndicator from "../../../components/component/elementIndicator";
+import {
+  ArrowBack,
+  ArrowDropDown,
+  PlayCircle,
+  StopCircle,
+} from "@mui/icons-material";
+import { Divider } from "@mui/material";
+import EclipseButton from "../../../components/component/eclipseButton ";
+import OpenButton from "../../../components/component/toggleButton";
+import ToggleButton from "../../../components/component/toggleButton";
 
 export default function Play() {
+  const [isCardOpen, setIsCardOpen] = useState(true);
+  const toggleCard = () => {
+    setIsCardOpen(!isCardOpen);
+  };
   const [svgColor, setSvgColor] = useState<string>("yellow");
   const [rad, setRad] = useState<number>(dimsFunctions.minRad);
   const [yCoord, setYCoord] = useState<number>(
@@ -36,6 +50,7 @@ export default function Play() {
     "A#",
     "B",
   ]);
+  const [vowels, setVowels] = useState<string[]>(["A", "E", "I", "O", "U"]);
 
   useEffect(() => {
     let audioContext: AudioContext | null;
@@ -409,7 +424,7 @@ export default function Play() {
   return (
     <main className="items-center">
       <section className="text-center">
-        <div className="bg-gradient-to-b from-blue-200 via-blue-300 to-blue-500 text-white">
+        <div className="bg-gradient-to-b from-white via-sky-200 via-40% to-sky-500 to-80% text-white">
           {sunListen ? (
             <SunAwake
               svgColor={svgColor}
@@ -427,67 +442,54 @@ export default function Play() {
           )}
         </div>
       </section>
-      <section>
-        <div className="absolute right-20 top-40 w-fit p-3 rounded-lg px-6 bg-white dark:bg-slate-800 fixed-square z-20">
-          <ProgressBar
-            title={"pitch"}
-            value={pitchValue}
-            minValue={0}
-            maxValue={500}
-          />
-          <ProgressBar
-            title={"intensity"}
-            value={volumeValue}
-            minValue={0}
-            maxValue={15}
-          />
-          <NoteIndicator noteStrings={noteStrings} indicatedNote={note} />
-          <p>
-            vowel: <br />
-            {vowel}
-          </p>
-        </div>
-        <div>
-          <div className="m-3">
-            <button
-              onClick={handleStartListening}
-              className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-            >
-              <span className="mr-2">Start</span>
-            </button>
+      <section className="absolute right-10 bottom-2 z-50 rounded-md bg-orange-100 dark:bg-slate-800">
+        <ToggleButton isOpen={isCardOpen} toggleCard={toggleCard} title={"data of the sound"} />{" "}
+        {isCardOpen && (
+          <div className="w-fit p-3 rounded-lg px-6  fixed-square ">
+            <ProgressBar
+              title={"pitch"}
+              value={pitchValue}
+              minValue={0}
+              maxValue={500}
+            />{" "}
+            <Divider className="mt-2" />
+            <ProgressBar
+              title={"intensity"}
+              value={volumeValue}
+              minValue={0}
+              maxValue={15}
+            />{" "}
+            <Divider className="my-2" />
+            <ElementIndicator
+              elementStrings={noteStrings}
+              indicatedElement={note}
+              title={"note"}
+            />
+            <Divider className="my-2" />
+            <ElementIndicator
+              elementStrings={vowels}
+              indicatedElement={vowel}
+              title={"vowel"}
+            />
           </div>
+        )}
+      </section>
+      <section className="absolute left-6 top-28 z-30">
+        <div className="justify-between place-content-center flex flex-col gap-2">
+          <button
+            onClick={handleStartListening}
+            className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+          >
+            <PlayCircle />
+            <span className="mr-2"> Start</span>
+          </button>
           <button
             onClick={handleStopListening}
-            className="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+            className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
           >
+            <StopCircle />
             <span className="mr-2">Stop</span>
           </button>
-        </div>
-        <div className="left-10 top-1/2 bg-base-100">
-          {/* <footer className="flex items-center justify-center py-2 bg-transparent">
-            <div className="grid grid-cols-2 btn-group">
-              <button
-                className={`btn w-32 ${
-                  isListening ? "btn-disabled" : "btn-active"
-                }`}
-                onClick={handleStartListening}
-                disabled={isListening}
-              >
-                <span className="triangle-icon text-current"></span>
-                Start
-              </button>
-              <button
-                className={`btn w-32 ${
-                  !isListening ? "btn-disabled" : "btn-active"
-                }`}
-                onClick={handleStopListening}
-                disabled={!isListening}
-              >
-                <span className="square-icon text-current"></span>
-                Stop
-              </button>
-            </div>
-          </footer> */}
         </div>
       </section>
     </main>

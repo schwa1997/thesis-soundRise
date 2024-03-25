@@ -80,7 +80,7 @@ const Header = () => {
           </div>
 
           {menuOpen && (
-            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-purple-300 dark:bg-black backdrop-filter backdrop-blur-lg transition-all p-4">
+            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-purple-300 dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
               <NavigationMenu>
                 <NavigationMenuList className="flex flex-col place-items-end bg-opacity-35 gap-4">
                   <NavigationMenuItem className="place-self-end">
