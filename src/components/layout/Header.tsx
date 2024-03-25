@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <nav
-      className="sticky z-40 top-0 bg-white dark:bg-black
+      className="sticky z-40 md:h-28 h-20 top-0 bg-white dark:bg-black
      dark:bg-opacity-50 bg-opacity-20 backdrop-filter backdrop-blur-lg transition-all 
      duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4 w-full "
     >
@@ -37,11 +37,10 @@ const Header = () => {
               href="./"
               className="hover:drop-shadow-lg text-lg font-semibold"
             >
-              <Image
+              <img
                 src="/soundRise-logo.svg"
                 alt="Your image"
-                width={80}
-                height={100}
+                className="md:w-16"
               />
             </Link>
           </div>
@@ -64,10 +63,16 @@ const Header = () => {
                     Sound Rise App
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <Link href="/soundRise/play" className="hover:text-orange-500">
+                    <Link
+                      href="/soundRise/play"
+                      className="hover:text-orange-500"
+                    >
                       Play SoundRise
                     </Link>
-                    <Link href="/soundRise/about" className="hover:text-orange-500">
+                    <Link
+                      href="/soundRise/about"
+                      className="hover:text-orange-500"
+                    >
                       About
                     </Link>
                   </NavigationMenuContent>
@@ -98,10 +103,16 @@ const Header = () => {
                       App1
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                      <Link href="/soundRise/play" className="hover:text-orange-500">
+                      <Link
+                        href="/soundRise/play"
+                        className="hover:text-orange-500"
+                      >
                         Play SoundRise
                       </Link>
-                      <Link href="/soundRise/about" className="hover:text-orange-500">
+                      <Link
+                        href="/soundRise/about"
+                        className="hover:text-orange-500"
+                      >
                         About
                       </Link>
                     </NavigationMenuContent>

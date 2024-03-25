@@ -478,7 +478,7 @@ export default function Play() {
           </div>
         )}
       </section>
-      <section className="absolute left-6 top-28 z-30">
+      <section className="absolute left-6 top-28 z-50">
         <div className="justify-between place-content-center flex flex-col gap-2">
           <button
             onClick={handleStartListening}
