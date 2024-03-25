@@ -5,7 +5,7 @@ import { DescriptionCard2 } from "@/components/component/descriptionCard2";
 
 export default function About() {
   return (
-    <main className="text-black dark:text-white flex min-h-screen flex-col items-center text-neutral-content">
+    <div className="text-black dark:text-white flex min-h-screen flex-col items-center text-neutral-content">
       <div className="min-h-screen min-w-screen">
         <div className="hero-content text-center">
           <div className="max-w-full">
@@ -150,6 +150,6 @@ export default function About() {
           GNU General Public License v3.0
         </a>
       </div>
-    </main>
+    </div>
   );
 }

@@ -122,7 +122,7 @@ const Header = () => {
               <div></div>
             </div>
           )}
-          <div>
+          <div className="flex flex-row justify-between items-center">
             <GitHub />
 
             {theme === "dark" ? (
@@ -134,7 +134,8 @@ const Header = () => {
               </Button>
             ) : (
               <Button
-                className="text-gray-600 "
+                size="small"
+                className="text-gray-600"
                 onClick={() => setTheme("dark")}
               >
                 <ModeNight />

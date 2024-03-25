@@ -2,7 +2,7 @@ import { ProjectCard } from "@/components/component/ProjectCard";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen gap-12 items-center justify-between px-20 md:flex-row">
+    <main className="flex flex-col min-h-screen gap-12 items-center justify-between px-20  sm:flex-row md:mx-20 mx-">
       <ProjectCard
         title={"app1"}
         link={"./soundRise"}
