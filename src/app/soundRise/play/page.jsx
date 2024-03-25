@@ -6,80 +6,69 @@ import React, { useState, useEffect } from "react";
 import SunAwake from "../../../components/icons/SunAwake";
 import SunSleep from "../../../components/icons/SunSleep";
 import { ProgressBar } from "../../../components/component/progressBar";
-import ElementIndicator from "../../../components/component/elementIndicator";
-import {
-  ArrowBack,
-  ArrowDropDown,
-  PlayCircle,
-  StopCircle,
-} from "@mui/icons-material";
-import { Divider } from "@mui/material";
-import EclipseButton from "../../../components/component/eclipseButton ";
-import OpenButton from "../../../components/component/toggleButton";
-import ToggleButton from "../../../components/component/toggleButton";
 
 export default function Play() {
-  const [isCardOpen, setIsCardOpen] = useState(false);
-  const toggleCard = () => {
-    setIsCardOpen(!isCardOpen);
-  };
-  const [svgColor, setSvgColor] = useState<string>("yellow");
-  const [rad, setRad] = useState<number>(dimsFunctions.minRad);
-  const [yCoord, setYCoord] = useState<number>(
+  // console.log(getCurrentDimension().width + " " + getCurrentDimension().height);
+  //var svgColor = "yellow";
+  const [svgColor, setSvgColor] = useState("yellow");
+  // var rad = dimsFunctions.minRad;
+  const [rad, setRad] = useState(dimsFunctions.minRad);
+
+  var yCoordinate = 0;
+  const [yCoord, setYCoord] = useState(
     (dimsFunctions.height - Math.round((dimsFunctions.height * 30) / 100)) / 2
   );
-  const [sunListen, setSunListen] = useState<boolean>(false);
-  const [isListening, setIsListening] = useState<boolean>(false);
+  // alert(yCoord);
+  // (dimsFunctions.height - Math.round((dimsFunctions.height * 30) / 100)) / 2;
+
+  const [sunListen, setSunListen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [pitch, setPitch] = useState("--");
-  const [pitchValue, setPitchValue] = useState(0);
-  const [volumeValue, setVolumeValue] = useState<number>(0);
   const [volume, setVolume] = useState("--");
   const [note, setNote] = useState("--");
   const [vowel, setVowel] = useState("--");
-  const [noteStrings, setNoteStrings] = useState<string[]>([
-    "C",
-    "C#",
-    "D",
-    "D#",
-    "E",
-    "F",
-    "F#",
-    "G",
-    "G#",
-    "A",
-    "A#",
-    "B",
-  ]);
-  const [vowels, setVowels] = useState<string[]>(["A", "E", "I", "O", "U"]);
 
   useEffect(() => {
-    let audioContext: AudioContext | null;
-    let analyser: AnalyserNode | null = null;
-    let mediaStreamSource: MediaStreamAudioSourceNode | null;
-    let rafID: number | null = null;
+    var audioContext = null;
+    let analyser = null;
+    let mediaStreamSource = null;
+    let rafID = null;
     const buflen = 2048;
     const buf = new Float32Array(buflen);
-    let count_sil = 0;
-    let buffer_pitch: number[] = [];
-    let buffer_vol: number[] = [];
-    let buffer_vocal: string[] = [];
-
-    function noteFromPitch(frequency: number) {
+    var buffer_pitch = [];
+    var buffer_vol = [];
+    var buffer_vocal = [];
+    var count_sil = 0;
+    const noteStrings = [
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+    ];
+    function noteFromPitch(frequency) {
       var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
       return Math.round(noteNum) + 69;
     }
 
-    function frequencyFromNoteNumber(note: number) {
+    function frequencyFromNoteNumber(note) {
       return 440 * Math.pow(2, (note - 69) / 12);
     }
 
-    function centsOffFromPitch(frequency: number, note: number) {
+    function centsOffFromPitch(frequency, note) {
       return Math.floor(
         (1200 * Math.log(frequency / frequencyFromNoteNumber(note))) /
           Math.log(2)
       );
     }
-    function setFrequency(buf: Float32Array, sampleRate: number) {
+    function setFrequency(buf, sampleRate) {
       // Implements the ACF2+ algorithm
       var SIZE = buf.length;
       var rms = 0;
@@ -139,9 +128,9 @@ export default function Play() {
       return sampleRate / T0;
     }
     // Define a buffer to store previous audio buffer data
-    const previousBuffers: number[] = [];
+    const previousBuffers = [];
 
-    function getStableVolume(buf: Float32Array) {
+    function getStableVolume(buf) {
       const sumSquares = buf.reduce(
         (sum, amplitude) => sum + amplitude * amplitude,
         0
@@ -166,52 +155,48 @@ export default function Play() {
       return Math.round(averageVolume * 100);
     }
 
-    function getVowel(buf: Float32Array, sampleRate: number) {
+    function getVowel(buf, sampleRate) {
       // donna
       var form1 = [320, 400, 620, 920, 640, 400, 360];
       var form2 = [2750, 2500, 2400, 1400, 1200, 920, 760];
       var result = vowelFunctions.getVowel(buf, sampleRate);
       return result;
     }
+
     const initializeAudio = () => {
-      audioContext = new window.AudioContext() || null;
-      if (audioContext) {
-        navigator.mediaDevices
-          .getUserMedia({
-            audio: {
-              echoCancellation: true,
-              noiseSuppression: true,
-              autoGainControl: true,
-              // highpassFilter: true,
-            },
-          })
-          .then((stream) => {
-            mediaStreamSource = audioContext!.createMediaStreamSource(stream);
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+            highpassFilter: true,
+          },
+        })
+        .then((stream) => {
+          mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
-            // Create DynamicsCompressor and get the reduction value
-            const compressor = audioContext!.createDynamicsCompressor();
-            compressor.threshold.value = -50;
-            compressor.knee.value = 40;
-            compressor.ratio.value = 12;
-            compressor.attack.value = 0;
-            compressor.release.value = 0.25;
+          // Create DynamicsCompressor and get the reduction value
+          const compressor = audioContext.createDynamicsCompressor();
+          compressor.threshold.value = -50;
+          compressor.knee.value = 40;
+          compressor.ratio.value = 12;
+          compressor.attack.value = 0;
+          compressor.release.value = 0.25;
 
-            compressor.reduction; // Just to avoid a warning, value is not used
+          compressor.reduction; // Just to avoid a warning, value is not used
 
-            analyser = audioContext!.createAnalyser();
-            analyser.fftSize = 2048;
-            mediaStreamSource.connect(analyser);
-            startListening();
-          })
-          .catch((err) => {
-            console.error(`${err.name}: ${err.message}`);
-          });
-      } else {
-        console.error("Failed to create AudioContext.");
-      }
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+          mediaStreamSource.connect(analyser);
+          startListening();
+        })
+        .catch((err) => {
+          console.error(`${err.name}: ${err.message}`);
+        });
     };
-
-    function ArrayAvg(myArray: string | any[]) {
+    function ArrayAvg(myArray) {
       var i = 0,
         summ = 0,
         ArrayLen = myArray.length;
@@ -220,8 +205,8 @@ export default function Play() {
       }
       return summ / ArrayLen;
     }
-    function findMostRepeatedItem(arr: string[]): string {
-      let count: Record<string, number> = {};
+    function findMostRepeatedItem(arr) {
+      let count = {};
       let mostRepeatedItem;
       let maxCount = 0;
 
@@ -237,14 +222,10 @@ export default function Play() {
           mostRepeatedItem = item;
         }
       }
-      if (mostRepeatedItem === undefined) {
-        // You can either throw an error or return a default value
-        // In this case, I'll return an empty string as a default value
-        return "";
-      }
+
       return mostRepeatedItem;
     }
-    const selectColor = (vocale: string | undefined) => {
+    const selectColor = (vocale) => {
       if (vocale == "I") {
         setSvgColor("blue");
       } else if (vocale == "E") {
@@ -259,9 +240,10 @@ export default function Play() {
     };
 
     const startListening = () => {
-      if (!analyser || !audioContext) {
+      if (!analyser) {
         return;
       }
+
       analyser.getFloatTimeDomainData(buf);
       const ac = setFrequency(buf, audioContext.sampleRate);
       const vol = getStableVolume(buf);
@@ -331,15 +313,12 @@ export default function Play() {
 
           const pitchValue = Math.round(ArrayAvg(buffer_pitch));
           const yCoordValue = dimsFunctions.setPosPitch(pitchValue);
-          setPitchValue(pitchValue);
           var hz = pitchValue + "Hz";
           setPitch(hz);
           setYCoord(yCoordValue);
 
-          const volValue = `${Math.round(ArrayAvg(buffer_vol))}`;
-          setVolumeValue(Math.round(ArrayAvg(buffer_vol)));
+          const volValue = Math.round(ArrayAvg(buffer_vol));
           setVolume(volValue);
-
           const radValue = dimsFunctions.setRad(volValue);
           setRad(radValue);
 
@@ -353,7 +332,7 @@ export default function Play() {
       }
 
       if (!window.requestAnimationFrame)
-        window.requestAnimationFrame = window.requestAnimationFrame;
+        window.requestAnimationFrame = window.webkitRequestAnimationFrame;
       rafID = window.requestAnimationFrame(startListening);
     };
 
@@ -373,9 +352,7 @@ export default function Play() {
         if (rafID) {
           window.cancelAnimationFrame(rafID);
         }
-        if (mediaStreamSource) {
-          mediaStreamSource.disconnect();
-        }
+        mediaStreamSource.disconnect(); // Disconnect the mediaStreamSource
         audioContext
           .close()
           .then(() => {
@@ -383,10 +360,10 @@ export default function Play() {
             analyser = null;
             mediaStreamSource = null;
             /* console.log(
-                "Microphone stopped.\nlen: " +
-                  buffer_pitch.filter((x, i) => buffer_pitch.indexOf(x) === i)
-                    .length
-              );*/
+              "Microphone stopped.\nlen: " +
+                buffer_pitch.filter((x, i) => buffer_pitch.indexOf(x) === i)
+                  .length
+            );*/
             setPitch("--");
             setVolume("--");
             setNote("--");
@@ -405,7 +382,7 @@ export default function Play() {
     return () => {
       stopListening();
     };
-  }, [isListening, noteStrings]);
+  }, [isListening]);
 
   const [startButtonDisabled, setStartButtonDisabled] = useState(false);
   const [stopButtonDisabled, setStopButtonDisabled] = useState(true);
@@ -421,10 +398,12 @@ export default function Play() {
     setStartButtonDisabled(false);
     setStopButtonDisabled(true);
   };
+
   return (
-    <main className="items-center">
+    <main className="items-center ">
       <section className="text-center">
-        <div className="bg-gradient-to-b from-white via-sky-200 via-40% to-sky-500 to-80% text-white">
+        <div className="bg-gradient-to-b from-blue-200 via-blue-300 to-blue-500 text-white">
+          {" "}
           {sunListen ? (
             <SunAwake
               svgColor={svgColor}
@@ -442,58 +421,51 @@ export default function Play() {
           )}
         </div>
       </section>
-      <section className="absolute right-10 bottom-2 z-50 rounded-md bg-orange-100 dark:bg-slate-800">
-        <ToggleButton
-          isOpen={isCardOpen}
-          toggleCard={toggleCard}
-          title={"data of the sound"}
-        />{" "}
-        {isCardOpen && (
-          <div className="w-fit p-3 rounded-lg px-6  fixed-square ">
-            <ProgressBar
-              title={"pitch"}
-              value={pitchValue}
-              minValue={0}
-              maxValue={500}
-            />{" "}
-            <Divider className="mt-2" />
-            <ProgressBar
-              title={"intensity"}
-              value={volumeValue}
-              minValue={0}
-              maxValue={15}
-            />{" "}
-            <Divider className="my-2" />
-            <ElementIndicator
-              elementStrings={noteStrings}
-              indicatedElement={note}
-              title={"note"}
-            />
-            <Divider className="my-2" />
-            <ElementIndicator
-              elementStrings={vowels}
-              indicatedElement={vowel}
-              title={"vowel"}
-            />
-          </div>
-        )}
-      </section>
-      <section className="absolute left-6 top-28 z-30">
-        <div className="justify-between place-content-center flex flex-col gap-2">
-          <button
-            onClick={handleStartListening}
-            className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          >
-            <PlayCircle />
-            <span className="mr-2"> Start</span>
-          </button>
-          <button
-            onClick={handleStopListening}
-            className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          >
-            <StopCircle />
-            <span className="mr-2">Stop</span>
-          </button>
+      <section>
+        <div className="absolute right-20 top-40 bg-purple-200 fixed-square z-20">
+          <ProgressBar title={"pitch"} value={25} />
+          <p>
+            pitch: <br />
+            {pitch}
+          </p>
+          <p>
+            intensity: <br />
+            {volume}
+          </p>
+          <p>
+            note: <br />
+            {note}
+          </p>
+          <p>
+            vowel: <br />
+            {vowel}
+          </p>
+        </div>
+        <div className="sticky left-10 top-1/2 bg-base-100">
+          <footer className="flex items-center justify-center py-2 bg-transparent">
+            <div className="grid  grid-cols-2 btn-group">
+              <button
+                className={`btn w-32 ${
+                  startButtonDisabled ? "btn-disabled" : "btn-active"
+                }`}
+                onClick={handleStartListening}
+                disabled={startButtonDisabled}
+              >
+                <span className="triangle-icon text-current"></span>
+                Start
+              </button>
+              <button
+                className={`btn w-32 ${
+                  stopButtonDisabled ? "btn-disabled" : "btn-active"
+                }`}
+                onClick={handleStopListening}
+                disabled={stopButtonDisabled}
+              >
+                <span className="square-icon text-current"></span>
+                Stop
+              </button>
+            </div>
+          </footer>
         </div>
       </section>
     </main>

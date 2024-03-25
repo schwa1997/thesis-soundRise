@@ -64,10 +64,10 @@ const Header = () => {
                     Sound Rise App
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <Link href="/soundRise/play" className="hover:text-purple-500">
+                    <Link href="/soundRise/play" className="hover:text-orange-500">
                       Play SoundRise
                     </Link>
-                    <Link href="/soundRise/about" className="hover:text-purple-500">
+                    <Link href="/soundRise/about" className="hover:text-orange-500">
                       About
                     </Link>
                   </NavigationMenuContent>
@@ -80,7 +80,7 @@ const Header = () => {
           </div>
 
           {menuOpen && (
-            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-purple-300 dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
+            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-orange-300 dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
               <NavigationMenu>
                 <NavigationMenuList className="flex flex-col place-items-end bg-opacity-35 gap-4">
                   <NavigationMenuItem className="place-self-end">
@@ -98,10 +98,10 @@ const Header = () => {
                       App1
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                      <Link href="/soundRise/play" className="hover:text-purple-500">
+                      <Link href="/soundRise/play" className="hover:text-orange-500">
                         Play SoundRise
                       </Link>
-                      <Link href="/soundRise/about" className="hover:text-purple-500">
+                      <Link href="/soundRise/about" className="hover:text-orange-500">
                         About
                       </Link>
                     </NavigationMenuContent>
@@ -109,10 +109,10 @@ const Header = () => {
                   <NavigationMenuItem className="place-self-end">
                     <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
                     <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                      <Link href="/soundRise" className="hover:text-purple-500">
+                      <Link href="/soundRise" className="hover:text-orange-500">
                         Play SoundRise
                       </Link>
-                      <Link href="/soundRise" className="hover:text-purple-500">
+                      <Link href="/soundRise" className="hover:text-orange-500">
                         About
                       </Link>
                     </NavigationMenuContent>
@@ -145,7 +145,7 @@ const Header = () => {
           <div className="sm:hidden  z-50">
             <button
               onClick={toggleMenu}
-              className="text-purple-500 focus:outline-none"
+              className="text-orange-500 focus:outline-none"
             >
               {menuOpen ? (
                 <svg

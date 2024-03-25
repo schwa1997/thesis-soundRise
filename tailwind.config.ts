@@ -10,8 +10,8 @@ const config = {
     //add for jsx
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
-    "./app/**/*.{js,jsx}",
-    "./src/**/*.{js,jsx}",
+    "./app/**/*.{ts,jsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
