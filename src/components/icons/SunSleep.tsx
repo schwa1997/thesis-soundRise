@@ -1,6 +1,19 @@
 import React from "react";
 
-const sunSleep = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
+interface SunSleepProps {
+  svgColor: string;
+  rad: number;
+  yCoordinate: number;
+  heightSpaceSun: string;
+}
+
+const SunSleep: React.FC<SunSleepProps> = ({
+  svgColor,
+  rad,
+  yCoordinate,
+  heightSpaceSun,
+}: SunSleepProps) => {
+
   const shadowRadius = rad + (rad * 50) / 100;
 
   const eyesRadius = rad - Math.round(rad / 1.3);
@@ -114,4 +127,4 @@ const sunSleep = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
   );
 };
 
-export default sunSleep;
+export default SunSleep;

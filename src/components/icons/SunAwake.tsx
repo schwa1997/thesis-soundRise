@@ -1,6 +1,18 @@
 import React from "react";
 
-const sunAwake = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
+interface SunAwakeProps {
+  svgColor: string;
+  rad: number;
+  yCoordinate: number;
+  heightSpaceSun: string;
+}
+
+const SunAwake: React.FC<SunAwakeProps> = ({
+  svgColor,
+  rad,
+  yCoordinate,
+  heightSpaceSun,
+}: SunAwakeProps) => {
   const shadowRadius = rad + (rad * 50) / 100;
 
   const eyesRadius = rad - Math.round(rad / 1.3);
@@ -22,20 +34,14 @@ const sunAwake = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
   const widthRect = (xcoordinateEyesRight - xcoordinateEyesLeft) * 2;
 
   const cyMouth = ycoordinateEyes + longSideEyes * 2;
-  {
-    /* larghezza bocca */
-  }
   const rxMouth = rad / 1.75;
-  {
-    /* altezza bocca */
-  }
   const ryMouth = rad / 2.2;
 
   const yRectMouth = ycoordinateEyes - longSideEyes / 2.5;
   const heightRectMouth = ryMouth * 1.5;
 
   return (
-    <div className="flex-grow sun-container w-full flex items-center justify-center ">
+    <div className="flex-grow sun-container w-full flex items-center justify-center">
       <svg
         width="100%" // Set the desired width of the circle
         height={heightSpaceSun} // Set the desired height of the circle
@@ -101,7 +107,6 @@ const sunAwake = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
           fill={"lightblue"}
           style={{ transform: "translate(50%, 50%)" }}
         />
-        {/* 5b3a29 */}
 
         <ellipse
           cx={xcoordinateEyesRight}
@@ -145,4 +150,4 @@ const sunAwake = ({ svgColor, rad, yCoordinate, heightSpaceSun }) => {
   );
 };
 
-export default sunAwake;
+export default SunAwake;

@@ -64,10 +64,10 @@ const Header = () => {
                     Sound Rise App
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <Link href="/soundRise" className="hover:text-purple-500">
+                    <Link href="/soundRise/play" className="hover:text-purple-500">
                       Play SoundRise
                     </Link>
-                    <Link href="/soundRise" className="hover:text-purple-500">
+                    <Link href="/soundRise/about" className="hover:text-purple-500">
                       About
                     </Link>
                   </NavigationMenuContent>
@@ -98,10 +98,10 @@ const Header = () => {
                       App1
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                      <Link href="/soundRise" className="hover:text-purple-500">
+                      <Link href="/soundRise/play" className="hover:text-purple-500">
                         Play SoundRise
                       </Link>
-                      <Link href="/soundRise" className="hover:text-purple-500">
+                      <Link href="/soundRise/about" className="hover:text-purple-500">
                         About
                       </Link>
                     </NavigationMenuContent>

@@ -31,7 +31,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
               src={imgUrl}
               alt=""
               className="rounded-t-lg"
-              width={600}
+              width={800}
               height={300}
             />
           </div>

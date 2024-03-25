@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import SunSleep from "../icons/sunSleep";
-import SunAwake from "../icons/sunAwake";
 import { Face } from "@mui/icons-material";
+import SunAwake from "../icons/SunAwake";
+import SunSleep from "../icons/SunSleep";
 
 interface DescriptionCardProps {
   title: string;
