@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { GitHub, ModeNight, WbSunny } from "@mui/icons-material";
+import { GitHub, HomeOutlined, ModeNight, WbSunny } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import {
   NavigationMenu,
@@ -25,7 +25,11 @@ const Header = () => {
   };
 
   return (
-    <nav className="sticky z-40 top-0 bg-white dark:bg-black dark:bg-opacity-50 bg-opacity-20 backdrop-filter backdrop-blur-lg transition-all duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4  w-full ">
+    <nav
+      className="sticky z-40 top-0 bg-white dark:bg-black
+     dark:bg-opacity-50 bg-opacity-20 backdrop-filter backdrop-blur-lg transition-all 
+     duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4 w-full "
+    >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <div className="mr-4">
@@ -42,125 +46,85 @@ const Header = () => {
             </Link>
           </div>
         </div>
-
-        <div className="hidden sm:flex items-center">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Home
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Sound Rise App</NavigationMenuTrigger>
-                <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                  <Link href="/soundRise" className="hover:text-purple-500">
-                    Play SoundRise
+        <section className="flex flex-row gap-4 justify-between items-center">
+          <div className="hidden sm:flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href="/" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Home
+                    </NavigationMenuLink>
                   </Link>
-                  <Link href="/soundRise" className="hover:text-purple-500">
-                    About
-                  </Link>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          <GitHub />
-
-          <div>
-            {theme === "dark" ? (
-              <Button
-                className=" dark:text-gray-300"
-                onClick={() => setTheme("bright")}
-              >
-                <WbSunny />
-              </Button>
-            ) : (
-              <Button
-                className="text-gray-600 "
-                onClick={() => setTheme("dark")}
-              >
-                <ModeNight />
-              </Button>
-            )}
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-opacity-90">
+                    Sound Rise App
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                    <Link href="/soundRise" className="hover:text-purple-500">
+                      Play SoundRise
+                    </Link>
+                    <Link href="/soundRise" className="hover:text-purple-500">
+                      About
+                    </Link>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
-        </div>
-        <div className="sm:hidden  z-50">
-          <button
-            onClick={toggleMenu}
-            className="text-purple-500 focus:outline-none"
-          >
-            {menuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-      {menuOpen && (
-        <div className="sm:hidden bg-gray-800 py-2 px-4 mt-2">
-          <Link
-            href="./"
-            className="block text-white text-lg font-semibold py-2"
-            onClick={toggleMenu}
-          >
-            HOME
-          </Link>
-          <Link
-            href="./about"
-            className="block text-white text-lg font-semibold py-2"
-            onClick={toggleMenu}
-          >
-            ABOUT
-          </Link>
-          <Link
-            href="./play"
-            className="block text-white text-lg font-semibold py-2"
-            onClick={toggleMenu}
-          >
-            RUN APP
-          </Link>
-          <Link
-            href="ithttps://github.com/zGiada/soundrise-application"
-            target="_blank"
-            className="block text-white text-lg font-semibold py-2"
-            onClick={toggleMenu}
-          >
+
+          {menuOpen && (
+            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-purple-300 dark:bg-black backdrop-filter backdrop-blur-lg transition-all p-4">
+              <NavigationMenu>
+                <NavigationMenuList className="flex flex-col place-items-end bg-opacity-35 gap-4">
+                  <NavigationMenuItem className="place-self-end">
+                    <Link href="/" legacyBehavior passHref className="">
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <HomeOutlined />
+                        Home
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="place-self-end">
+                    <NavigationMenuTrigger className="">
+                      App1
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                      <Link href="/soundRise" className="hover:text-purple-500">
+                        Play SoundRise
+                      </Link>
+                      <Link href="/soundRise" className="hover:text-purple-500">
+                        About
+                      </Link>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="place-self-end">
+                    <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
+                    <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                      <Link href="/soundRise" className="hover:text-purple-500">
+                        Play SoundRise
+                      </Link>
+                      <Link href="/soundRise" className="hover:text-purple-500">
+                        About
+                      </Link>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+              <div></div>
+            </div>
+          )}
+          <div>
             <GitHub />
-          </Link>
-          <div>
+
             {theme === "dark" ? (
               <Button
                 className=" dark:text-gray-300"
@@ -177,8 +141,46 @@ const Header = () => {
               </Button>
             )}
           </div>
-        </div>
-      )}
+          <div className="sm:hidden  z-50">
+            <button
+              onClick={toggleMenu}
+              className="text-purple-500 focus:outline-none"
+            >
+              {menuOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </section>
+      </div>
     </nav>
   );
 };
