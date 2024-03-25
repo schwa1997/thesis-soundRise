@@ -20,13 +20,17 @@ const ElementIndicator: React.FC<ElementIndicatorProps> = ({
           </th>
         </tr>
       </thead>
-      <tbody className="bg-white dark:bg-slate-700 divide-gray-200 grid grid-cols-5 ">
+      <tbody className="bg-white dark:bg-slate-700 divide-gray-200 grid grid-cols-5 text-center ">
         {elementStrings.map((element, index) => (
           <tr
             key={element}
-            className={element === indicatedElement ? "bg-orange-500" : ""}
+            className={
+              element === indicatedElement
+                ? "bg-orange-500"
+                : " text-center"
+            }
           >
-            <td className="p-3 whitespace-nowrap">{element}</td>
+            <td className="p-2 flex place-content-center whitespace-nowrap">{element}</td>
           </tr>
         ))}
       </tbody>

@@ -3,19 +3,29 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { GitHub, HomeOutlined, ModeNight, WbSunny } from "@mui/icons-material";
+import {
+  GitHub,
+  Home,
+  HomeOutlined,
+  ModeNight,
+  WbSunny,
+} from "@mui/icons-material";
 import { Button } from "@mui/material";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -26,11 +36,11 @@ const Header = () => {
 
   return (
     <nav
-      className="sticky z-40 md:h-28 h-20 top-0 bg-white dark:bg-black
+      className="sticky z-40 top-0 md:p-2 p-3 bg-white dark:bg-black
      dark:bg-opacity-50 bg-opacity-20 backdrop-filter backdrop-blur-lg transition-all 
-     duration-300 dark:text-slate-300 leading-none text-2xl text-black p-4 w-full "
+     duration-300 dark:text-slate-300 leading-none text-2xl text-black w-full "
     >
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container flex justify-between items-center">
         <div className="flex items-center">
           <div className="mr-4">
             <Link
@@ -40,7 +50,7 @@ const Header = () => {
               <img
                 src="/soundRise-logo.svg"
                 alt="Your image"
-                className="md:w-16"
+                className="md:w-16 w-10"
               />
             </Link>
           </div>
@@ -50,31 +60,30 @@ const Header = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      Home
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    href="/"
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    Home
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-opacity-90">
                     Sound Rise App
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <Link
+                    <NavigationMenuLink
                       href="/soundRise/play"
                       className="hover:text-orange-500"
                     >
                       Play SoundRise
-                    </Link>
-                    <Link
+                    </NavigationMenuLink>
+                    <NavigationMenuLink
                       href="/soundRise/about"
                       className="hover:text-orange-500"
                     >
                       About
-                    </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -85,51 +94,40 @@ const Header = () => {
           </div>
 
           {menuOpen && (
-            <div className="sm:hidden rounded-lg z-50 absolute right-2 top-20 bg-opacity-35 bg-orange-300 dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
-              <NavigationMenu>
-                <NavigationMenuList className="flex flex-col place-items-end bg-opacity-35 gap-4">
-                  <NavigationMenuItem className="place-self-end">
-                    <Link href="/" legacyBehavior passHref className="">
-                      <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        <HomeOutlined />
-                        Home
-                      </NavigationMenuLink>
+            <div className="sm:hidden rounded-lg text-sm z-50 absolute right-0 top-10 bg-opacity-35 bg-orange-300 dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <Link href="/">
+                      <Home />
                     </Link>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem className="place-self-end">
-                    <NavigationMenuTrigger className="">
-                      App1
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                  </AccordionTrigger>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>APP1</AccordionTrigger>
+                  <AccordionContent className="grid gap-4 ml-2">
+                    <div>
                       <Link
                         href="/soundRise/play"
                         className="hover:text-orange-500"
                       >
                         Play SoundRise
                       </Link>
+                    </div>
+                    <div>
                       <Link
                         href="/soundRise/about"
                         className="hover:text-orange-500"
                       >
                         About
                       </Link>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem className="place-self-end">
-                    <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
-                    <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                      <Link href="/soundRise" className="hover:text-orange-500">
-                        Play SoundRise
-                      </Link>
-                      <Link href="/soundRise" className="hover:text-orange-500">
-                        About
-                      </Link>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>APP2</AccordionTrigger>
+                </AccordionItem>
+              </Accordion>
               <div></div>
             </div>
           )}

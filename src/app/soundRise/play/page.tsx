@@ -422,22 +422,22 @@ export default function Play() {
     setStopButtonDisabled(true);
   };
   return (
-    <main className="items-center">
-      <section className="text-center">
-        <div className="bg-gradient-to-b from-white via-sky-200 via-40% to-sky-500 to-80% text-white">
+    <main className="absolute bottom-0 h-screen w-screen bg-orange-400">
+      <section className="text-center h-full">
+        <div className="bg-gradient-to-b from-blue-200 via-sky-200 via-40% to-sky-500 to-80% text-white">
           {sunListen ? (
             <SunAwake
               svgColor={svgColor}
               rad={rad}
               yCoordinate={yCoord}
-              heightSpaceSun={"90vh"}
+              heightSpaceSun={"100vh"}
             />
           ) : (
             <SunSleep
               svgColor={svgColor}
               rad={rad}
               yCoordinate={yCoord}
-              heightSpaceSun={"90vh"}
+              heightSpaceSun={"100vh"}
             />
           )}
         </div>
@@ -449,7 +449,7 @@ export default function Play() {
           title={"data of the sound"}
         />{" "}
         {isCardOpen && (
-          <div className="w-fit p-3 rounded-lg px-6  fixed-square ">
+          <div className="w-fit p-3 rounded-lg px-6 fixed-square ">
             <ProgressBar
               title={"pitch"}
               value={pitchValue}
