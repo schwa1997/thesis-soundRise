@@ -7,7 +7,7 @@ export default function AnimationBox() {
   const [x, setX] = useState(100);
   const [y, setY] = useState(10);
   const [rotate, setRotate] = useState(0);
-  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+  const [screenHeight, setScreenHeight] = useState(500);
 
   return (
     <div className="absolute top-0 border-red-500 w-screen h-screen flex flex-rows">
