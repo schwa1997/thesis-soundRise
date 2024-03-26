@@ -86,8 +86,22 @@ const Header = () => {
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
+                <NavigationMenuItem >
                   <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
+                  <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
+                    <NavigationMenuLink
+                      href="/soundRise2/play"
+                      className="hover:text-orange-500"
+                    >
+                      Play SoundRise2
+                    </NavigationMenuLink>
+                    <NavigationMenuLink
+                      href="/soundRise2/about"
+                      className="hover:text-orange-500"
+                    >
+                      About2
+                    </NavigationMenuLink>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

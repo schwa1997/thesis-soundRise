@@ -23,6 +23,10 @@ export default function Play() {
   const toggleCard = () => {
     setIsCardOpen(!isCardOpen);
   };
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const toggleButton = () => {
+    setIsToggleOpen(!isToggleOpen);
+  };
   const [svgColor, setSvgColor] = useState<string>("yellow");
   const [rad, setRad] = useState<number>(dimsFunctions.minRad);
   const [yCoord, setYCoord] = useState<number>(
@@ -478,23 +482,43 @@ export default function Play() {
           </div>
         )}
       </section>
-      <section className="absolute left-6 top-28 z-50">
-        <div className="justify-between place-content-center flex flex-col gap-2">
-          <button
-            onClick={handleStartListening}
-            className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          >
-            <PlayCircle />
-            <span className="mr-2"> Start</span>
-          </button>
-          <button
-            onClick={handleStopListening}
-            className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          >
-            <StopCircle />
-            <span className="mr-2">Stop</span>
-          </button>
-        </div>
+      <section className="absolute left-0 top-28 z-50">
+        <ToggleButton
+          isOpen={isToggleOpen}
+          toggleCard={toggleButton}
+          title={""}
+        />{" "}
+        {isToggleOpen ? (
+          <section className="absolute left-2">
+            <div className="justify-between place-content-center flex flex-col gap-2">
+              <button
+                onClick={handleStartListening}
+                className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+              >
+                <PlayCircle />
+                <span className="mr-2"> Start</span>
+              </button>
+              <button
+                onClick={handleStopListening}
+                className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+              >
+                <StopCircle />
+                <span className="mr-2">Stop</span>
+              </button>
+            </div>
+          </section>
+        ) : (
+          <section className="">
+            <div className="justify-between place-content-left flex flex-col gap-2">
+              <button onClick={handleStartListening}>
+                <PlayCircle />
+              </button>
+              <button onClick={handleStopListening}>
+                <StopCircle />
+              </button>
+            </div>
+          </section>
+        )}
       </section>
     </main>
   );

@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.tsx", ".next/types/**/*.ts", "src/app/soundRise/play/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.tsx", ".next/types/**/*.ts", "src/app/soundRise/play/page.tsx", "src/components/component/animationBox.tsx"],
   "exclude": ["node_modules"]
 }
