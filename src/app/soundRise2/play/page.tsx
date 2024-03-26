@@ -10,7 +10,7 @@ export default function page() {
   return (
     <div className="absolute top-0 w-full">
       <BoxContainer brightnessValue={brightness} backgroundCss={"ddd"}>
-        <AnimationBox />
+        {/* <AnimationBox /> */}<div>hi</div>
       </BoxContainer>
     </div>
   );
