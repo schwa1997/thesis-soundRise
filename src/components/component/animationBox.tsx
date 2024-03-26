@@ -29,7 +29,6 @@ export default function AnimationBox() {
             y: `calc(${((100 - y) * screenHeight) / 100}px - 140px)`, // Adjust 8px based on icon size
             rotate,
           }}
-          transition={{ type: "spring" }}
         >
           <SunIcon className="w-24 h-24 text-yellow-500" />
         </motion.div>
