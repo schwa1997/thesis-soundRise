@@ -9,18 +9,6 @@ export default function AnimationBox() {
   const [rotate, setRotate] = useState(0);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenHeight(window.innerHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div className="absolute top-0 border-red-500 w-screen h-screen flex flex-rows">
       <div className="flex flex-col pt-32">
