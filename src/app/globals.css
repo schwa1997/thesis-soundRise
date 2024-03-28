@@ -74,3 +74,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes sunrise-animation-1 {
+  0% {
+    background: linear-gradient(to bottom, #0d1a26 0%, #4d6d7e 50%, #ffcc00 100%);
+  }
+  50% {
+    background: linear-gradient(to bottom, #0d1a26 0%, #4d6d7e 50%, #ff6600 100%);
+  }
+  100% {
+    background: linear-gradient(to bottom, #0d1a26 0%, #4d6d7e 50%, #ff0000 100%);
+  }
+}
+
+@keyframes sunrise-animation-2 {
+  0% {
+    --sunrise-color: #ffcc00;
+  }
+  50% {
+    --sunrise-color: #ff6600;
+  }
+  100% {
+    --sunrise-color: var(--sunrise-color, #ff0000);
+  }
+}

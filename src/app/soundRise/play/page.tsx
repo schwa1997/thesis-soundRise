@@ -14,16 +14,15 @@ import {
   StopCircle,
 } from "@mui/icons-material";
 import { Divider } from "@mui/material";
-import EclipseButton from "../../../components/component/eclipseButton ";
-import OpenButton from "../../../components/component/toggleButton";
 import ToggleButton from "../../../components/component/toggleButton";
+import { PlayBox } from "@/components/layout/skyContainer copy";
 
 export default function Play() {
-  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [isCardOpen, setIsCardOpen] = useState(true);
   const toggleCard = () => {
     setIsCardOpen(!isCardOpen);
   };
-  const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const [isToggleOpen, setIsToggleOpen] = useState(true);
   const toggleButton = () => {
     setIsToggleOpen(!isToggleOpen);
   };
@@ -426,9 +425,9 @@ export default function Play() {
     setStopButtonDisabled(true);
   };
   return (
-    <main className="absolute bottom-0 h-screen w-screen bg-orange-400">
+    <main className="absolute bottom-0 h-screen w-screen">
       <section className="text-center h-full">
-        <div className="bg-gradient-to-b from-blue-200 via-sky-200 via-40% to-sky-500 to-80% text-white">
+        <PlayBox brightnessValue={volumeValue * 8}>
           {sunListen ? (
             <SunAwake
               svgColor={svgColor}
@@ -444,9 +443,9 @@ export default function Play() {
               heightSpaceSun={"100vh"}
             />
           )}
-        </div>
+        </PlayBox>
       </section>
-      <section className="absolute right-10 bottom-2 z-50 rounded-md bg-orange-100 dark:bg-slate-800">
+      <section className="absolute right-10 bottom-2 z-50 rounded-md bg-opacity-50 bg-orange-100 dark:bg-slate-800">
         <ToggleButton
           isOpen={isCardOpen}
           toggleCard={toggleCard}
@@ -482,14 +481,16 @@ export default function Play() {
           </div>
         )}
       </section>
-      <section className="absolute left-0 top-28 z-50">
-        <ToggleButton
-          isOpen={isToggleOpen}
-          toggleCard={toggleButton}
-          title={""}
-        />{" "}
+      <section className="absolute left-0 top-28 z-50 bg-opacity-50 bg-orange-100 dark:bg-slate-800 rounded-lg px-2 pb-3">
+        <div className="relative">
+          <ToggleButton
+            isOpen={isToggleOpen}
+            toggleCard={toggleButton}
+            title={""}
+          />
+        </div>
         {isToggleOpen ? (
-          <section className="absolute left-2">
+          <section className="relative">
             <div className="justify-between place-content-center flex flex-col gap-2">
               <button
                 onClick={handleStartListening}
@@ -508,7 +509,7 @@ export default function Play() {
             </div>
           </section>
         ) : (
-          <section className="">
+          <section className="relative">
             <div className="justify-between place-content-left flex flex-col gap-2">
               <button onClick={handleStartListening}>
                 <PlayCircle />
