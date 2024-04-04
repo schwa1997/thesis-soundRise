@@ -29,6 +29,11 @@ const config = {
     },
     extend: {
       colors: {
+        themedOrange: "#FCBF36",
+        themedYellow: "#FEEB15",
+        themedDark: "#000000",
+        themedDark2: "#181E24",
+        themedDark3: "#1F2831",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -68,7 +73,7 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

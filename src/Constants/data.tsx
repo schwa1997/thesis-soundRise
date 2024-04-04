@@ -23,6 +23,5 @@ export const data = {
         "a website for ",
       link: "https://github.com/schwa1997/",
     },
-
   ],
 };
