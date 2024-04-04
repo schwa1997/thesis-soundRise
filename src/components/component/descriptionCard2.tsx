@@ -21,7 +21,7 @@ export const DescriptionCard2: FC<DescriptionCardProps> = ({
   icoColor,
 }) => {
   return (
-    <div className="bg-gray-200 bg-opacity-40 dark:bg-gray-800 p-4 rounded-xl shadow-md">
+    <div className="bg-gray-200 bg-opacity-40 hover:bg-themedOrange/30 dark:hover:bg-themedOrange/30 dark:bg-themedDark3  p-4 rounded-xl shadow-md">
       <div className="card-body">
         <h2 className="card-title">
           <b className="text-yellow-500">{title}</b>

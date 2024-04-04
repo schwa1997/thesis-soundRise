@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <nav
-      className="sticky z-40 top-0 md:py-2 py-2 md:px-6 px-2 bg-white dark:bg-themedDark2
+      className="sticky z-40 top-0 place-content-center md:px-6 px-2 sm:h-20 h-14 bg-white dark:bg-themedDark2
      dark:bg-opacity-100 bg-opacity-50 backdrop-filter backdrop-blur-lg transition-all 
      duration-300 dark:text-slate-300 leading-none text-2xl text-black w-full "
     >
@@ -110,7 +110,7 @@ const Header = () => {
           </div>
 
           {menuOpen && (
-            <div className="sm:hidden rounded-lg text-sm z-50 absolute right-0 top-10 bg-opacity-35 bg-white dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
+            <div className="sm:hidden rounded-lg text-sm z-50 absolute right-0 sm:top-20 top-14 bg-opacity-35 bg-white dark:bg-slate-800 backdrop-filter backdrop-blur-lg transition-all p-4">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger>Sound Rise</AccordionTrigger>
