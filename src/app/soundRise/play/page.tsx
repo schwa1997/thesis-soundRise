@@ -7,18 +7,16 @@ import SunAwake from "../../../components/icons/SunAwake";
 import SunSleep from "../../../components/icons/SunSleep";
 import { ProgressBar } from "../../../components/component/progressBar";
 import ElementIndicator from "../../../components/component/elementIndicator";
-import {
-  ArrowBack,
-  ArrowDropDown,
-  PlayCircle,
-  StopCircle,
-} from "@mui/icons-material";
+import { Fullscreen, PlayCircle, StopCircle } from "@mui/icons-material";
 import { Divider } from "@mui/material";
 import ToggleButton from "../../../components/component/toggleButton";
-import { PlayBox } from "@/components/layout/skyContainer copy";
+import { PlayBox } from "@/components/layout/skyContainer";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export default function Play() {
-  const [isCardOpen, setIsCardOpen] = useState(true);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const handle = useFullScreenHandle();
+
   const toggleCard = () => {
     setIsCardOpen(!isCardOpen);
   };
@@ -425,102 +423,114 @@ export default function Play() {
     setStopButtonDisabled(true);
   };
   return (
-    <main className="absolute bottom-0 h-screen w-screen">
-      <section className="text-center h-full">
-        <PlayBox brightnessValue={volumeValue * 8}>
-          {sunListen ? (
-            <SunAwake
-              svgColor={svgColor}
-              rad={rad}
-              yCoordinate={yCoord}
-              heightSpaceSun={"100vh"}
-            />
-          ) : (
-            <SunSleep
-              svgColor={svgColor}
-              rad={rad}
-              yCoordinate={yCoord}
-              heightSpaceSun={"100vh"}
-            />
-          )}
-        </PlayBox>
-      </section>
-      <section className="absolute right-10 bottom-2 z-50 rounded-md bg-opacity-50 bg-orange-100 dark:bg-slate-800">
-        <ToggleButton
-          isOpen={isCardOpen}
-          toggleCard={toggleCard}
-          title={"data of the sound"}
-        />{" "}
-        {isCardOpen && (
-          <div className="w-fit p-3 rounded-lg px-6 fixed-square ">
-            <ProgressBar
-              title={"pitch"}
-              value={pitchValue}
-              minValue={0}
-              maxValue={500}
-            />{" "}
-            <Divider className="mt-2" />
-            <ProgressBar
-              title={"intensity"}
-              value={volumeValue}
-              minValue={0}
-              maxValue={15}
-            />{" "}
-            <Divider className="my-2" />
-            <ElementIndicator
-              elementStrings={noteStrings}
-              indicatedElement={note}
-              title={"note"}
-            />
-            <Divider className="my-2" />
-            <ElementIndicator
-              elementStrings={vowels}
-              indicatedElement={vowel}
-              title={"vowel"}
-            />
-          </div>
-        )}
-      </section>
-      <section className="absolute left-0 top-28 z-50 bg-opacity-50 bg-orange-100 dark:bg-slate-800 rounded-lg px-2 pb-3">
-        <div className="relative">
-          <ToggleButton
-            isOpen={isToggleOpen}
-            toggleCard={toggleButton}
-            title={""}
-          />
-        </div>
-        {isToggleOpen ? (
-          <section className="relative">
-            <div className="justify-between place-content-center flex flex-col gap-2">
-              <button
-                onClick={handleStartListening}
-                className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-              >
-                <PlayCircle />
-                <span className="mr-2"> Start</span>
-              </button>
-              <button
-                onClick={handleStopListening}
-                className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-              >
-                <StopCircle />
-                <span className="mr-2">Stop</span>
-              </button>
-            </div>
+    <>
+      <FullScreen handle={handle}>
+        <main className="absolute bottom-0 h-screen w-screen">
+          <section className="text-center h-full">
+            <PlayBox brightnessValue={volumeValue * 8}>
+              {sunListen ? (
+                <SunAwake
+                  svgColor={svgColor}
+                  rad={rad}
+                  yCoordinate={yCoord}
+                  heightSpaceSun={"100vh"}
+                />
+              ) : (
+                <SunSleep
+                  svgColor={svgColor}
+                  rad={rad}
+                  yCoordinate={yCoord}
+                  heightSpaceSun={"100vh"}
+                />
+              )}
+            </PlayBox>
           </section>
-        ) : (
-          <section className="relative">
-            <div className="justify-between place-content-left flex flex-col gap-2">
-              <button onClick={handleStartListening}>
-                <PlayCircle />
-              </button>
-              <button onClick={handleStopListening}>
-                <StopCircle />
-              </button>
-            </div>
+          <section className="absolute sm:right-2 right-1 bottom-2 z-50 rounded-md bg-opacity-50 bg-orange-100 dark:bg-slate-800">
+            <ToggleButton
+              isOpen={isCardOpen}
+              toggleCard={toggleCard}
+              title={"Data of the sound"}
+            />{" "}
+            {isCardOpen && (
+              <div className="w-fit sm:p-3 p-0 rounded-lg sm:px-6 px-2 fixed-square sm:w-fit ">
+                <ProgressBar
+                  title={"pitch"}
+                  value={pitchValue}
+                  minValue={0}
+                  maxValue={500}
+                />{" "}
+                <Divider className="mt-2" />
+                <ProgressBar
+                  title={"intensity"}
+                  value={volumeValue}
+                  minValue={0}
+                  maxValue={15}
+                />{" "}
+                <Divider className="my-2" />
+                <ElementIndicator
+                  elementStrings={noteStrings}
+                  indicatedElement={note}
+                  title={"note"}
+                />
+                <Divider className="my-2" />
+                <ElementIndicator
+                  elementStrings={vowels}
+                  indicatedElement={vowel}
+                  title={"vowel"}
+                />
+              </div>
+            )}
           </section>
-        )}
+          <section className="absolute sm:left-2 left-1 bottom-2 z-50 bg-opacity-50 bg-orange-100 dark:bg-slate-800 rounded-lg px-2 pb-3">
+            <div className="relative">
+              <ToggleButton
+                isOpen={isToggleOpen}
+                toggleCard={toggleButton}
+                title={""}
+              />
+            </div>
+            {isToggleOpen ? (
+              <section className="relative">
+                <div className="justify-between place-content-center flex flex-col gap-2">
+                  <button
+                    onClick={handleStartListening}
+                    className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                  >
+                    <PlayCircle />
+                    <span className="mr-2"> Start</span>
+                  </button>
+                  <button
+                    onClick={handleStopListening}
+                    className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                  >
+                    <StopCircle />
+                    <span className="mr-2">Stop</span>
+                  </button>
+                </div>
+              </section>
+            ) : (
+              <section className="relative">
+                <div className="justify-between place-content-left flex px-2">
+                  <button onClick={handleStartListening}>
+                    <PlayCircle className="hover:text-green-400" />
+                  </button>
+                  <button onClick={handleStopListening}>
+                    <StopCircle className="hover:text-red-700" />
+                  </button>
+                </div>
+              </section>
+            )}
+          </section>
+        </main>
+      </FullScreen>
+      <section>
+        <button
+          className="z-50 absolute sm:top-24 top-18 sm:left-2 left-1 text-white"
+          onClick={handle.enter}
+        >
+          <Fullscreen className="sm:text-4xl text-2xl"/>
+        </button>
       </section>
-    </main>
+    </>
   );
 }
