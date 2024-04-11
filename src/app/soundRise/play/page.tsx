@@ -10,8 +10,6 @@ import ElementIndicator from "../../../components/component/elementIndicator";
 import {
   CloseFullscreenOutlined,
   Fullscreen,
-  FullscreenExit,
-  FullscreenOutlined,
   PlayCircle,
   StopCircle,
 } from "@mui/icons-material";
@@ -528,25 +526,32 @@ export default function Play() {
               </section>
             )}
           </section>
+          <section>
+            <button
+              className="z-50 absolute sm:top-1 top-1 sm:right-2 right-1 text-white"
+              onClick={handle.exit}
+              style={{ display: handle.active ? "block" : "none" }}
+            >
+              <CloseFullscreenOutlined />
+            </button>
+          </section>
         </main>
       </FullScreen>
       <section>
-        <FullScreen handle={handle}>
-          <button
-            className="z-50 absolute sm:top-24 top-18 sm:left-2 left-1 text-white"
-            onClick={handle.enter}
-            style={{ display: handle.active ? "none" : "block" }}
-          >
-            <FullscreenOutlined/>
-          </button>
-          <button
-            className="z-50 absolute sm:top-1 top-1 sm:right-2 right-1 text-white"
-            onClick={handle.exit}
-            style={{ display: handle.active ? "block" : "none" }}
-          >
-             <FullscreenExit/>
-          </button>
-        </FullScreen>
+        <button
+          className="z-50 absolute sm:top-24 top-18 sm:left-2 left-1 text-white"
+          onClick={handle.enter}
+          style={{ display: handle.active ? "none" : "block" }}
+        >
+          <Fullscreen className="sm:text-4xl text-2xl" />
+        </button>
+        <button
+          className="z-50 absolute sm:top-1 top-1 sm:right-2 right-1 text-white"
+          onClick={handle.exit}
+          style={{ display: handle.active ? "block" : "none" }}
+        >
+          <CloseFullscreenOutlined />
+        </button>
       </section>
     </>
   );
