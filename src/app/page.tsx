@@ -5,7 +5,7 @@ export default function Home() {
     <main className="flex flex-col min-h-screen gap-2 items-center justify-between px-0  sm:flex-row md:mx-20 my-8">
       <ProjectCard
         title={"Sound Rise"}
-        link={"./soundRise"}
+        link={"./soundRise/play"}
         imgUrl={"/app1.png"}
         description={
           "sunrise is an app for kids who have disablity for listing to practice speaking with the function to visualise the volumn"

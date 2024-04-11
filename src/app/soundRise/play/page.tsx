@@ -7,7 +7,14 @@ import SunAwake from "../../../components/icons/SunAwake";
 import SunSleep from "../../../components/icons/SunSleep";
 import { ProgressBar } from "../../../components/component/progressBar";
 import ElementIndicator from "../../../components/component/elementIndicator";
-import { Fullscreen, PlayCircle, StopCircle } from "@mui/icons-material";
+import {
+  CloseFullscreenOutlined,
+  Fullscreen,
+  FullscreenExit,
+  FullscreenOutlined,
+  PlayCircle,
+  StopCircle,
+} from "@mui/icons-material";
 import { Divider } from "@mui/material";
 import ToggleButton from "../../../components/component/toggleButton";
 import { PlayBox } from "@/components/layout/skyContainer";
@@ -524,12 +531,22 @@ export default function Play() {
         </main>
       </FullScreen>
       <section>
-        <button
-          className="z-50 absolute sm:top-24 top-18 sm:left-2 left-1 text-white"
-          onClick={handle.enter}
-        >
-          <Fullscreen className="sm:text-4xl text-2xl"/>
-        </button>
+        <FullScreen handle={handle}>
+          <button
+            className="z-50 absolute sm:top-24 top-18 sm:left-2 left-1 text-white"
+            onClick={handle.enter}
+            style={{ display: handle.active ? "none" : "block" }}
+          >
+            <FullscreenOutlined/>
+          </button>
+          <button
+            className="z-50 absolute sm:top-1 top-1 sm:right-2 right-1 text-white"
+            onClick={handle.exit}
+            style={{ display: handle.active ? "block" : "none" }}
+          >
+             <FullscreenExit/>
+          </button>
+        </FullScreen>
       </section>
     </>
   );
