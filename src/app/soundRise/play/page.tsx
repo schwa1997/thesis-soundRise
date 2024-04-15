@@ -25,10 +25,6 @@ export default function Play() {
   const toggleCard = () => {
     setIsCardOpen(!isCardOpen);
   };
-  const [isToggleOpen, setIsToggleOpen] = useState(true);
-  const toggleButton = () => {
-    setIsToggleOpen(!isToggleOpen);
-  };
   const [svgColor, setSvgColor] = useState<string>("yellow");
   const [rad, setRad] = useState<number>(dimsFunctions.minRad);
   const [yCoord, setYCoord] = useState<number>(
@@ -486,17 +482,10 @@ export default function Play() {
               </div>
             )}
           </section>
-          <section className="absolute sm:left-2 left-1 bottom-2 z-50 bg-opacity-50 bg-orange-100 dark:bg-slate-800 rounded-lg px-2 pb-3">
-            <div className="relative">
-              <ToggleButton
-                isOpen={isToggleOpen}
-                toggleCard={toggleButton}
-                title={""}
-              />
-            </div>
-            {isToggleOpen ? (
-              <section className="relative">
-                <div className="justify-between place-content-center flex flex-col gap-2">
+          <section className="absolute sm:left-2 left-1 bottom-2 z-50 bg-opacity-50 rounded-lg">
+            <section className="relative">
+              <div className="justify-between place-content-center flex flex-col gap-2">
+                {!isListening ? (
                   <button
                     onClick={handleStartListening}
                     className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
@@ -504,6 +493,7 @@ export default function Play() {
                     <PlayCircle />
                     <span className="mr-2"> Start</span>
                   </button>
+                ) : (
                   <button
                     onClick={handleStopListening}
                     className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
@@ -511,20 +501,9 @@ export default function Play() {
                     <StopCircle />
                     <span className="mr-2">Stop</span>
                   </button>
-                </div>
-              </section>
-            ) : (
-              <section className="relative">
-                <div className="justify-between place-content-left flex px-2">
-                  <button onClick={handleStartListening}>
-                    <PlayCircle className="hover:text-green-400" />
-                  </button>
-                  <button onClick={handleStopListening}>
-                    <StopCircle className="hover:text-red-700" />
-                  </button>
-                </div>
-              </section>
-            )}
+                )}
+              </div>
+            </section>
           </section>
           <section>
             <button
