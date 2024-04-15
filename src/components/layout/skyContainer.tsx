@@ -11,7 +11,6 @@ export const PlayBox: FC<PlayBoxProps> = ({ children, brightnessValue }) => {
   return (
     <div className="w-full h-screen overflow-hidden">
       <div
-        className={``}
         style={{
           backgroundImage: `url('https://images5.alphacoders.com/336/thumb-1920-336729.jpg')`,
           filter: `brightness(${brightnessValue}%)`,
@@ -19,7 +18,6 @@ export const PlayBox: FC<PlayBoxProps> = ({ children, brightnessValue }) => {
         }}
       >
         {children}
-
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"

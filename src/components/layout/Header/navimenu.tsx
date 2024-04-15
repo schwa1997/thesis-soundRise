@@ -34,7 +34,7 @@ const NavigationMenuDemo = () => {
                   <a
                     className="focus:shadow-violet7 from-purple9 to-indigo9 flex
                     h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
-                    href="/soundRise/play"
+                    href="/soundRise"
                   >
                     <Image
                       src={"/app1.png"}
@@ -53,7 +53,9 @@ const NavigationMenuDemo = () => {
                 </NavigationMenu.Link>
               </li>
 
-              <ListItem href="/soundRise/about" title="Documentation" />
+              <ListItem href="/soundRise/play" title="Play">
+                Click here to play.
+              </ListItem>
               <ListItem href="/soundRise/about" title="About Page">
                 content.
               </ListItem>

@@ -428,7 +428,7 @@ export default function Play() {
       <FullScreen handle={handle}>
         <main className="absolute bottom-0 h-screen w-screen">
           <section className="text-center h-full">
-            <PlayBox brightnessValue={volumeValue * 8}>
+            <PlayBox brightnessValue={pitchValue/5}>
               {sunListen ? (
                 <SunAwake
                   svgColor={svgColor}

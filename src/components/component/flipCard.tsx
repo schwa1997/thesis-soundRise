@@ -29,7 +29,7 @@ export const FlipCard: FC<ProjectCardProps> = ({
           </div>
           <div className="absolute inset-0 h-ful1 w-full rounded-xl bg-black/80 pX-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
             <div className=" flex min-h-full flex-col items-center justify-center">
-              <h1 className="text-lg font-bold ">{title}</h1>
+              <h1 className="text-3xl font-bold ">{title}</h1>
               <p> {description}</p>
               <div className="flex p-6 min-h-min gap-2 ">
                 {keywords.map((keyword) => (

@@ -58,54 +58,6 @@ const Header = () => {
         </div>
         <section className="flex flex-row justify-between items-center">
           <div className="hidden sm:flex sm:w-96 w-80">
-            {/* <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/"
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    Home
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-opacity-90">
-                    Sound Rise App
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <NavigationMenuLink
-                      href="/soundRise/play"
-                      className="hover:text-themedOrange"
-                    >
-                      Play SoundRise
-                    </NavigationMenuLink>
-                    <NavigationMenuLink
-                      href="/soundRise/about"
-                      className="hover:text-themedOrange"
-                    >
-                      About
-                    </NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem >
-                  <NavigationMenuTrigger>App 2</NavigationMenuTrigger>
-                  <NavigationMenuContent className="grid gap-3 p-4 text-sm w-[500px] md:w-[500px] lg:w-[200px]">
-                    <NavigationMenuLink
-                      href="/soundRise2/play"
-                      className="hover:text-themedOrange"
-                    >
-                      Play SoundRise2
-                    </NavigationMenuLink>
-                    <NavigationMenuLink
-                      href="/soundRise2/about"
-                      className="hover:text-themedOrange"
-                    >
-                      About2
-                    </NavigationMenuLink>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu> */}
             <NavigationMenuDemo />
           </div>
 
