@@ -426,7 +426,7 @@ export default function Play() {
       <FullScreen handle={handle}>
         <main className="absolute bottom-0 h-screen w-screen">
           <section className="text-center h-full">
-            <PlayBox brightnessValue={pitchValue/5}>
+            <PlayBox brightnessValue={pitchValue / 5}>
               {sunListen ? (
                 <SunAwake
                   svgColor={svgColor}
@@ -462,8 +462,8 @@ export default function Play() {
                 <ProgressBar
                   title={"intensity"}
                   value={volumeValue}
-                  minValue={2}
-                  maxValue={50}
+                  minValue={0}
+                  maxValue={15}
                 />{" "}
                 <Divider className="my-2" />
                 <ElementIndicator
@@ -481,12 +481,12 @@ export default function Play() {
             )}
           </section>
           <section className="absolute sm:left-2 left-1 bottom-2 z-50 bg-opacity-50 rounded-lg">
-            <section className="relative">
+            <section className="relative sm:text-lg text-xs">
               <div className="justify-between place-content-center flex flex-col gap-2">
                 {!isListening ? (
                   <button
                     onClick={handleStartListening}
-                    className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                    className="bg-orange-100 dark:bg-slate-700  font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 sm:px-6 px-2 inline-flex items-center"
                   >
                     <PlayCircle />
                     <span className="mr-2"> Start</span>
@@ -494,7 +494,7 @@ export default function Play() {
                 ) : (
                   <button
                     onClick={handleStopListening}
-                    className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                    className="bg-orange-100 dark:bg-slate-700 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 sm:px-6 px-2 inline-flex items-center"
                   >
                     <StopCircle />
                     <span className="mr-2">Stop</span>

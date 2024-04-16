@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import {
@@ -45,7 +44,7 @@ const Header = () => {
         <div className="flex items-center">
           <div className="mr-4">
             <Link
-              href="./"
+              href="./home"
               className="hover:drop-shadow-lg text-lg font-semibold"
             >
               <img

@@ -29,6 +29,7 @@
     "react-card-flip": "^1.2.2",
     "react-dom": "^18",
     "react-full-screen": "^1.1.1",
+    "react-wavify": "^1.10.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
   },
