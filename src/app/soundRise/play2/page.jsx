@@ -19,24 +19,34 @@ import { PlayBox } from "@/components/layout/skyContainer";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export default function Play() {
+  //about layout
   const [isCardOpen, setIsCardOpen] = useState(false);
   const handle = useFullScreenHandle();
-
   const toggleCard = () => {
     setIsCardOpen(!isCardOpen);
   };
-  const [svgColor, setSvgColor] = useState<string>("yellow");
-  const [rad, setRad] = useState<number>(dimsFunctions.minRad);
-  const [yCoord, setYCoord] = useState<number>(198);
-  const [sunListen, setSunListen] = useState<boolean>(false);
-  const [isListening, setIsListening] = useState<boolean>(false);
+  // console.log(getCurrentDimension().width + " " + getCurrentDimension().height);
+  //var svgColor = "yellow";
+  const [svgColor, setSvgColor] = useState("yellow");
+  // var rad = dimsFunctions.minRad;
+  const [rad, setRad] = useState(dimsFunctions.minRad);
+
+  var yCoordinate = 0;
+  const [yCoord, setYCoord] = useState(
+    (dimsFunctions.height - Math.round((dimsFunctions.height * 30) / 100)) / 2
+  );
+  // alert(yCoord);
+  // (dimsFunctions.height - Math.round((dimsFunctions.height * 30) / 100)) / 2;
+
+  const [sunListen, setSunListen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [pitch, setPitch] = useState("--");
-  const [pitchValue, setPitchValue] = useState<number>(200);
-  const [volumeValue, setVolumeValue] = useState<number>(0);
   const [volume, setVolume] = useState("--");
+  const [pitchValue, setPitchValue] = useState(150);
+  const [volumeValue, setVolumeValue] = useState(0);
   const [note, setNote] = useState("--");
   const [vowel, setVowel] = useState("--");
-  const [noteStrings, setNoteStrings] = useState<string[]>([
+  const noteStrings = [
     "C",
     "C#",
     "D",
@@ -49,37 +59,36 @@ export default function Play() {
     "A",
     "A#",
     "B",
-  ]);
-  const [vowels, setVowels] = useState<string[]>(["A", "E", "I", "O", "U"]);
+  ];
+  const vowels = ["A", "E", "I", "O", "U"];
 
   useEffect(() => {
-    let audioContext: AudioContext | null;
-    let analyser: AnalyserNode | null = null;
-    let mediaStreamSource: MediaStreamAudioSourceNode | null;
-    let rafID: number | null = null;
+    var audioContext = null;
+    let analyser = null;
+    let mediaStreamSource = null;
+    let rafID = null;
     const buflen = 2048;
     const buf = new Float32Array(buflen);
-    let count_sil = 0;
-    let buffer_pitch: number[] = [];
-    let buffer_vol: number[] = [];
-    let buffer_vocal: string[] = [];
-
-    function noteFromPitch(frequency: number) {
+    var buffer_pitch = [];
+    var buffer_vol = [];
+    var buffer_vocal = [];
+    var count_sil = 0;
+    function noteFromPitch(frequency) {
       var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
       return Math.round(noteNum) + 69;
     }
 
-    function frequencyFromNoteNumber(note: number) {
+    function frequencyFromNoteNumber(note) {
       return 440 * Math.pow(2, (note - 69) / 12);
     }
 
-    function centsOffFromPitch(frequency: number, note: number) {
+    function centsOffFromPitch(frequency, note) {
       return Math.floor(
         (1200 * Math.log(frequency / frequencyFromNoteNumber(note))) /
           Math.log(2)
       );
     }
-    function setFrequency(buf: Float32Array, sampleRate: number) {
+    function setFrequency(buf, sampleRate) {
       // Implements the ACF2+ algorithm
       var SIZE = buf.length;
       var rms = 0;
@@ -139,9 +148,9 @@ export default function Play() {
       return sampleRate / T0;
     }
     // Define a buffer to store previous audio buffer data
-    const previousBuffers: number[] = [];
+    const previousBuffers = [];
 
-    function getStableVolume(buf: Float32Array) {
+    function getStableVolume(buf) {
       const sumSquares = buf.reduce(
         (sum, amplitude) => sum + amplitude * amplitude,
         0
@@ -166,52 +175,48 @@ export default function Play() {
       return Math.round(averageVolume * 100);
     }
 
-    function getVowel(buf: Float32Array, sampleRate: number) {
+    function getVowel(buf, sampleRate) {
       // donna
       var form1 = [320, 400, 620, 920, 640, 400, 360];
       var form2 = [2750, 2500, 2400, 1400, 1200, 920, 760];
       var result = vowelFunctions.getVowel(buf, sampleRate);
       return result;
     }
+
     const initializeAudio = () => {
-      audioContext = new window.AudioContext() || null;
-      if (audioContext) {
-        navigator.mediaDevices
-          .getUserMedia({
-            audio: {
-              echoCancellation: true,
-              noiseSuppression: true,
-              autoGainControl: true,
-              // highpassFilter: true,
-            },
-          })
-          .then((stream) => {
-            mediaStreamSource = audioContext!.createMediaStreamSource(stream);
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+            highpassFilter: true,
+          },
+        })
+        .then((stream) => {
+          mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
-            // Create DynamicsCompressor and get the reduction value
-            const compressor = audioContext!.createDynamicsCompressor();
-            compressor.threshold.value = -50;
-            compressor.knee.value = 40;
-            compressor.ratio.value = 12;
-            compressor.attack.value = 0;
-            compressor.release.value = 0.25;
+          // Create DynamicsCompressor and get the reduction value
+          const compressor = audioContext.createDynamicsCompressor();
+          compressor.threshold.value = -50;
+          compressor.knee.value = 40;
+          compressor.ratio.value = 12;
+          compressor.attack.value = 0;
+          compressor.release.value = 0.25;
 
-            compressor.reduction; // Just to avoid a warning, value is not used
+          compressor.reduction; // Just to avoid a warning, value is not used
 
-            analyser = audioContext!.createAnalyser();
-            analyser.fftSize = 2048;
-            mediaStreamSource.connect(analyser);
-            startListening();
-          })
-          .catch((err) => {
-            console.error(`${err.name}: ${err.message}`);
-          });
-      } else {
-        console.error("Failed to create AudioContext.");
-      }
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+          mediaStreamSource.connect(analyser);
+          startListening();
+        })
+        .catch((err) => {
+          console.error(`${err.name}: ${err.message}`);
+        });
     };
-
-    function ArrayAvg(myArray: string | any[]) {
+    function ArrayAvg(myArray) {
       var i = 0,
         summ = 0,
         ArrayLen = myArray.length;
@@ -220,8 +225,8 @@ export default function Play() {
       }
       return summ / ArrayLen;
     }
-    function findMostRepeatedItem(arr: string[]): string {
-      let count: Record<string, number> = {};
+    function findMostRepeatedItem(arr) {
+      let count = {};
       let mostRepeatedItem;
       let maxCount = 0;
 
@@ -237,14 +242,10 @@ export default function Play() {
           mostRepeatedItem = item;
         }
       }
-      if (mostRepeatedItem === undefined) {
-        // You can either throw an error or return a default value
-        // In this case, I'll return an empty string as a default value
-        return "";
-      }
+
       return mostRepeatedItem;
     }
-    const selectColor = (vocale: string | undefined) => {
+    const selectColor = (vocale) => {
       if (vocale == "I") {
         setSvgColor("blue");
       } else if (vocale == "E") {
@@ -259,9 +260,10 @@ export default function Play() {
     };
 
     const startListening = () => {
-      if (!analyser || !audioContext) {
+      if (!analyser) {
         return;
       }
+
       analyser.getFloatTimeDomainData(buf);
       const ac = setFrequency(buf, audioContext.sampleRate);
       const vol = getStableVolume(buf);
@@ -331,15 +333,14 @@ export default function Play() {
 
           const pitchValue = Math.round(ArrayAvg(buffer_pitch));
           const yCoordValue = dimsFunctions.setPosPitch(pitchValue);
-          setPitchValue(pitchValue);
           var hz = pitchValue + "Hz";
+          setPitchValue(pitchValue);
           setPitch(hz);
           setYCoord(yCoordValue);
 
-          const volValue = `${Math.round(ArrayAvg(buffer_vol))}`;
-          setVolumeValue(Math.round(ArrayAvg(buffer_vol)));
+          const volValue = Math.round(ArrayAvg(buffer_vol));
           setVolume(volValue);
-
+          setVolumeValue(Math.round(ArrayAvg(buffer_vol)));
           const radValue = dimsFunctions.setRad(volValue);
           setRad(radValue);
 
@@ -353,7 +354,7 @@ export default function Play() {
       }
 
       if (!window.requestAnimationFrame)
-        window.requestAnimationFrame = window.requestAnimationFrame;
+        window.requestAnimationFrame = window.webkitRequestAnimationFrame;
       rafID = window.requestAnimationFrame(startListening);
     };
 
@@ -373,20 +374,13 @@ export default function Play() {
         if (rafID) {
           window.cancelAnimationFrame(rafID);
         }
-        if (mediaStreamSource) {
-          mediaStreamSource.disconnect();
-        }
+        mediaStreamSource.disconnect(); // Disconnect the mediaStreamSource
         audioContext
           .close()
           .then(() => {
             audioContext = null;
             analyser = null;
             mediaStreamSource = null;
-            /* console.log(
-                "Microphone stopped.\nlen: " +
-                  buffer_pitch.filter((x, i) => buffer_pitch.indexOf(x) === i)
-                    .length
-              );*/
             setPitch("--");
             setVolume("--");
             setNote("--");
@@ -405,28 +399,23 @@ export default function Play() {
     return () => {
       stopListening();
     };
-  }, [isListening, noteStrings]);
+  }, [isListening]);
 
-  const [startButtonDisabled, setStartButtonDisabled] = useState(false);
-  const [stopButtonDisabled, setStopButtonDisabled] = useState(true);
 
   const handleStartListening = () => {
     setIsListening(true);
-    setStartButtonDisabled(true);
-    setStopButtonDisabled(false);
   };
 
   const handleStopListening = () => {
     setIsListening(false);
-    setStartButtonDisabled(false);
-    setStopButtonDisabled(true);
   };
+
   return (
     <>
       <FullScreen handle={handle}>
         <main className="absolute bottom-0 h-screen w-screen">
           <section className="text-center h-full">
-            <PlayBox brightnessValue={pitchValue/5}>
+            <PlayBox brightnessValue={pitchValue / 5}>
               {sunListen ? (
                 <SunAwake
                   svgColor={svgColor}
@@ -455,7 +444,7 @@ export default function Play() {
                 <ProgressBar
                   title={"pitch"}
                   value={pitchValue}
-                  minValue={0}
+                  minValue={150}
                   maxValue={500}
                 />{" "}
                 <Divider className="mt-2" />
@@ -477,6 +466,7 @@ export default function Play() {
                   indicatedElement={vowel}
                   title={"vowel"}
                 />
+              
               </div>
             )}
           </section>
