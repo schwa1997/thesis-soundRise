@@ -26,7 +26,7 @@ export const PlayBox: FC<PlayBoxProps> = ({ children, brightnessValue }) => {
             // filter: `brightness(${brightnessValue}%)`,
             ...animationStyle,
           }}
-          className="absolute bottom-0 h-16"
+          className="absolute bottom-0 h-20"
           options={{
             amplitude: 20,
             speed: 0.8,
