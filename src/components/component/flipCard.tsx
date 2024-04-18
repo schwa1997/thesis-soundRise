@@ -1,10 +1,11 @@
-import { PlayCircleFilled } from "@mui/icons-material";
+import { InfoRounded, PlayCircleFilled } from "@mui/icons-material";
 import Image from "next/image";
 import React, { FC } from "react";
 
 interface ProjectCardProps {
   title: string;
   link: string;
+  playLink: string;
   imgUrl: string;
   description: string;
   keywords: string[];
@@ -14,6 +15,7 @@ export const FlipCard: FC<ProjectCardProps> = ({
   title,
   link,
   imgUrl,
+  playLink,
   description,
   keywords,
 }) => {
@@ -23,7 +25,7 @@ export const FlipCard: FC<ProjectCardProps> = ({
         <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
           <div className="absolute inset-0">
             <img
-              className="h-full w-full rounded-xl object-cover shadow-xl  shadow-black/40"
+              className="h-full w-full rounded-xl object-contain shadow-xl shadow-black/40"
               src={imgUrl}
             />
           </div>
@@ -39,8 +41,13 @@ export const FlipCard: FC<ProjectCardProps> = ({
                 ))}
               </div>
               <div className="absolute bottom-4 right-6 text-themedOrange dark:text-white dark:hover:text-themedOrange">
-                <a href={link}>
+                <a href={playLink}>
                   <PlayCircleFilled className=" sm:text-5xl text-3xl" />
+                </a>
+              </div>
+              <div className="absolute bottom-4 left-6 text-themedOrange dark:text-white dark:hover:text-themedOrange">
+                <a href={link}>
+                  <InfoRounded className=" sm:text-5xl text-3xl" />
                 </a>
               </div>
             </div>
@@ -50,5 +57,3 @@ export const FlipCard: FC<ProjectCardProps> = ({
     </div>
   );
 };
-
-

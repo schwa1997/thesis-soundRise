@@ -44,7 +44,7 @@ const Header = () => {
         <div className="flex items-center">
           <div className="mr-4">
             <Link
-              href="./home"
+              href="/"
               className="hover:drop-shadow-lg text-lg font-semibold"
             >
               <img
