@@ -34,14 +34,24 @@ export default function page() {
               animated according to the tonal and timbral features of the voice
               itself.
             </p>
-            <Button
-              variant="contained"
-              className="bg-gray-200 text-black hover:bg-themedOrange hover:text-white"
-            >
-              <a href="/soundRise/play" className=" no-underline">
-                Click here to play
-              </a>
-            </Button>
+            <div className="flex place-content-between md:flex-row flex-col gap-2">
+              <Button
+                variant="contained"
+                className="bg-gray-200 text-black hover:bg-themedOrange hover:text-white"
+              >
+                <a href="/soundRise/play" className=" no-underline">
+                  Click here to play
+                </a>
+              </Button>
+              <Button
+                variant="contained"
+                className="bg-gray-200 text-black hover:bg-themedOrange hover:text-white"
+              >
+                <a href="/soundRise/about" className=" no-underline">
+                  Read the documentation
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
