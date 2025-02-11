@@ -8,6 +8,7 @@ export default function VowelRecognitionPage() {
   const [audioUrl, setAudioUrl] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [testResult, setTestResult] = useState(null);
+  const [selectedVowel, setSelectedVowel] = useState("a");
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -65,6 +66,9 @@ export default function VowelRecognitionPage() {
       const response = await fetch(audioUrl);
       const audioBlob = await response.blob();
 
+      // Use selected vowel for filename
+      const fileName = `${selectedVowel}.wav`;
+
       // Convert blob to base64
       const base64Audio = await new Promise((resolve) => {
         const reader = new FileReader();
@@ -80,7 +84,7 @@ export default function VowelRecognitionPage() {
         },
         body: JSON.stringify({
           input: base64Audio,
-          fileName: "recorded-vowel.wav",
+          fileName: fileName,
         }),
       });
 
@@ -110,6 +114,18 @@ export default function VowelRecognitionPage() {
         <h3>Record or Upload Vowel Audio for Testing:</h3>
 
         <div className={styles.recordingControls}>
+          <select
+            value={selectedVowel}
+            onChange={(e) => setSelectedVowel(e.target.value)}
+            className={styles.select}
+          >
+            <option value="a">a</option>
+            <option value="e">e</option>
+            <option value="i">i</option>
+            <option value="o">o</option>
+            <option value="u">u</option>
+          </select>
+
           <button
             onClick={startRecording}
             disabled={isRecording}
