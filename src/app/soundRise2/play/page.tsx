@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import styles from "./VowelRecognition.module.css";
 
 export default function VowelRecognitionPage() {
   const [isRecording, setIsRecording] = useState(false);
@@ -107,17 +106,21 @@ export default function VowelRecognitionPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Vowel Recognition Test Interface</h1>
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">
+        Vowel Recognition Test Interface
+      </h1>
 
-      <div className={styles.inputContainer}>
-        <h3>Record or Upload Vowel Audio for Testing:</h3>
+      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h3 className="text-xl font-semibold mb-4">
+          Record or Upload Vowel Audio for Testing:
+        </h3>
 
-        <div className={styles.recordingControls}>
+        <div className="space-y-4">
           <select
             value={selectedVowel}
             onChange={(e) => setSelectedVowel(e.target.value)}
-            className={styles.select}
+            className="block w-full p-2 border rounded-md mb-4"
           >
             <option value="a">a</option>
             <option value="e">e</option>
@@ -129,47 +132,49 @@ export default function VowelRecognitionPage() {
           <button
             onClick={startRecording}
             disabled={isRecording}
-            className={styles.button}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600"
           >
             Start Recording
           </button>
           <button
             onClick={stopRecording}
             disabled={!isRecording}
-            className={styles.button}
+            className="bg-red-500 text-white px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-red-600"
           >
             Stop Recording
           </button>
           {audioUrl && (
-            <audio controls src={audioUrl} className={styles.audio} />
+            <audio controls src={audioUrl} className="w-full mt-4" />
           )}
         </div>
 
-        <p>- OR -</p>
+        <p className="text-center my-4">- OR -</p>
 
         <input
           type="file"
           accept="audio/*"
           onChange={handleFileUpload}
-          className={styles.fileInput}
+          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
         />
 
         <button
           onClick={runTest}
           disabled={!audioUrl || isProcessing}
-          className={styles.button}
+          className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-600"
         >
           Run Test
         </button>
       </div>
 
-      <div className={styles.resultContainer}>
-        <h3>Test Results:</h3>
-        <div className={styles.result}>
-          {isProcessing && <p>Processing... Please wait...</p>}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h3 className="text-xl font-semibold mb-4">Test Results:</h3>
+        <div className="space-y-4">
+          {isProcessing && (
+            <p className="text-gray-600">Processing... Please wait...</p>
+          )}
           {testResult && !testResult.error && (
             <div>
-              <div className="result-item">
+              <div className="space-y-2">
                 <p>
                   <strong>Prediction:</strong> Class {testResult.prediction}{" "}
                   (Vowel: {testResult.predictedVowel})
@@ -177,7 +182,11 @@ export default function VowelRecognitionPage() {
                 <p>
                   <strong>Actual Vowel:</strong> {testResult.actualVowel}
                 </p>
-                <p style={{ color: testResult.isCorrect ? "green" : "red" }}>
+                <p
+                  className={
+                    testResult.isCorrect ? "text-green-600" : "text-red-600"
+                  }
+                >
                   <strong>Status:</strong> Prediction is{" "}
                   {testResult.isCorrect ? "correct" : "incorrect"}
                 </p>
@@ -187,18 +196,22 @@ export default function VowelRecognitionPage() {
                 </p>
               </div>
 
-              <h4>Prediction Probabilities for All Classes:</h4>
+              <h4 className="font-semibold mt-6 mb-4">
+                Prediction Probabilities for All Classes:
+              </h4>
               {Object.entries(testResult.allProbabilities)
                 .sort(([, a], [, b]) => b - a)
                 .map(([vowel, prob]) => {
                   const percentage = (prob * 100).toFixed(2);
                   return (
-                    <div key={vowel} className={styles.probabilityBar}>
-                      <div
-                        className={styles.probabilityValue}
-                        style={{ width: `${percentage}%` }}
-                      >
-                        {vowel}: {percentage}%
+                    <div key={vowel} className="mb-2">
+                      <div className="w-full bg-gray-200 rounded-full h-4">
+                        <div
+                          className="bg-blue-600 h-4 rounded-full text-xs text-white px-2 flex items-center"
+                          style={{ width: `${percentage}%` }}
+                        >
+                          {vowel}: {percentage}%
+                        </div>
                       </div>
                     </div>
                   );
@@ -206,7 +219,7 @@ export default function VowelRecognitionPage() {
             </div>
           )}
           {testResult?.error && (
-            <p style={{ color: "red" }}>Error: {testResult.error}</p>
+            <p className="text-red-600">Error: {testResult.error}</p>
           )}
         </div>
       </div>

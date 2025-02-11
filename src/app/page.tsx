@@ -12,18 +12,18 @@ export default function Home() {
           description={
             "sunrise is an app for kids who have disablity for listing to practice speaking with the function to visualise the volumn"
           }
-          keywords={["kids", "volumn"]}
+          keywords={["Vowel recognition", "Formants"]}
           link={"./soundRise"}
         />
         <FlipCard
-          title={"app2"}
+          title={"Train with AI"}
           playLink={"./soundRise2/play"}
           imgUrl={"/app2.png"}
           link={"./soundRise2"}
           description={
-            "this app is for singing practice. Singers can visualize the pitch by the animation. so with this app, singers can practice the singing better "
+            "This app uses the CNN model to recognize the vowel sound."
           }
-          keywords={["students", "music"]}
+          keywords={["CNN", "Vowel recognition"]}
         />
       </main>
       <Footer />

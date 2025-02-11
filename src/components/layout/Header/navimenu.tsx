@@ -65,7 +65,7 @@ const NavigationMenuDemo = () => {
 
         <NavigationMenu.Item>
           <NavigationMenu.Trigger className="hover:bg-themedOrange/30 focus:shadow-violet7 group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[15px] font-medium leading-none outline-none">
-            App 2
+            Vowel with AI
             <ArrowDropDown
               className="text-violet10 relative top-[1px] transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
               aria-hidden
@@ -88,18 +88,21 @@ const NavigationMenuDemo = () => {
                       height={300}
                     />
                     <div className="mt-4 mb-[7px] text-[18px] font-medium leading-[1.2] ">
-                      App 2
+                      Vowel with AI
                     </div>
                     <p className="text-mauve4 text-[14px] leading-[1.3]">
-                      App 2 introdcution
+                      This app uses the CNN model to recognize the vowel sound.
                     </p>
                   </a>
                 </NavigationMenu.Link>
               </li>
 
+              <ListItem href="/soundRise2/play" title="Play">
+                Click here to play.
+              </ListItem>
               <ListItem href="/soundRise2/about" title="Documentation" />
               <ListItem href="/soundRise2/about" title="About Page">
-                content.
+                This app uses the CNN model to recognize the vowel sound.
               </ListItem>
             </ul>
           </NavigationMenu.Content>
