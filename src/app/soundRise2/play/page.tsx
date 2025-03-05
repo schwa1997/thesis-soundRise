@@ -76,16 +76,19 @@ export default function VowelRecognitionPage() {
       });
 
       // Call API
-      const apiResponse = await fetch("http://localhost:5000/api/test-model", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          input: base64Audio,
-          fileName: fileName,
-        }),
-      });
+      const apiResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/test-model`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            input: base64Audio,
+            fileName: fileName,
+          }),
+        }
+      );
 
       if (!apiResponse.ok) {
         throw new Error(`HTTP error! status: ${apiResponse.status}`);
