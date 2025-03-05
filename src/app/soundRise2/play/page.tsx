@@ -97,7 +97,7 @@ export default function VowelRecognitionPage() {
 
         // 停止所有音轨
         const tracks = mediaRecorderRef.current.stream.getTracks();
-        tracks.forEach(track => track.stop());
+        tracks.forEach((track) => track.stop());
 
         // 关闭音频上下文
         if (audioContextRef.current) {
@@ -121,14 +121,15 @@ export default function VowelRecognitionPage() {
             resolve();
           };
 
-          mediaRecorderRef.current.addEventListener("stop", handleStop, { once: true });
+          mediaRecorderRef.current.addEventListener("stop", handleStop, {
+            once: true,
+          });
         });
 
         // 清理引用
         mediaRecorderRef.current = null;
         audioChunksRef.current = [];
         analyserRef.current = null;
-
       } catch (error) {
         console.error("Error stopping recording:", error);
       }
@@ -386,9 +387,7 @@ export default function VowelRecognitionPage() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        Vowel Recognition
-      </h1>
+      <h1 className="text-3xl font-bold mb-6">Vowel Recognition</h1>
 
       {/* Recording Section */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
