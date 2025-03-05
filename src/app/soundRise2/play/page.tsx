@@ -86,53 +86,52 @@ export default function VowelRecognitionPage() {
   };
 
   const stopRecording = async () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      try {
+        // 停止录音
+        mediaRecorderRef.current.stop();
+        setIsRecording(false);
 
-      await new Promise<void>((resolve) => {
-        mediaRecorderRef.current!.addEventListener("stop", () => {
-          // 直接创建文件对象
-          const audioBlob = new Blob(audioChunksRef.current, {
-            type: "audio/wav",
-          });
-          const file = new File([audioBlob], `${selectedVowel}.wav`, {
-            type: "audio/wav",
-          });
+        // 停止所有音轨
+        const tracks = mediaRecorderRef.current.stream.getTracks();
+        tracks.forEach(track => track.stop());
 
-          // 创建一个隐藏的文件输入元素
-          const input = document.createElement("input");
-          input.type = "file";
+        // 关闭音频上下文
+        if (audioContextRef.current) {
+          await audioContextRef.current.close();
+          audioContextRef.current = null;
+        }
 
-          // 将文件分配给输入元素
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(file);
-          input.files = dataTransfer.files;
+        // 等待录音数据处理完成
+        await new Promise<void>((resolve) => {
+          if (!mediaRecorderRef.current) {
+            resolve();
+            return;
+          }
 
-          // 使用相同的文件上传处理函数
-          const fakeEvent = {
-            target: input,
-            nativeEvent: new Event("change"),
-            currentTarget: input,
-            bubbles: true,
-            cancelable: true,
-            defaultPrevented: false,
-            eventPhase: 2,
-            isTrusted: true,
-            preventDefault: () => {},
-            stopPropagation: () => {},
-            isDefaultPrevented: () => false,
-            isPropagationStopped: () => false,
-            persist: () => {},
-            timeStamp: Date.now(),
-            type: "change",
-          } as React.ChangeEvent<HTMLInputElement>;
+          const handleStop = () => {
+            const audioBlob = new Blob(audioChunksRef.current, {
+              type: "audio/wav",
+            });
+            const url = URL.createObjectURL(audioBlob);
+            setAudioUrl(url);
+            resolve();
+          };
 
-          handleFileUpload(fakeEvent);
-          resolve();
+          mediaRecorderRef.current.addEventListener("stop", handleStop, { once: true });
         });
-      });
 
-      // ... 清理代码
+        // 清理引用
+        mediaRecorderRef.current = null;
+        audioChunksRef.current = [];
+        analyserRef.current = null;
+
+      } catch (error) {
+        console.error("Error stopping recording:", error);
+      }
     }
   };
 
@@ -388,7 +387,7 @@ export default function VowelRecognitionPage() {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">
-        Vowel Recognition Test Interface
+        Vowel Recognition
       </h1>
 
       {/* Recording Section */}
