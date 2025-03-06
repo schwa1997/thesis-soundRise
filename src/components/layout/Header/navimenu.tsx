@@ -78,7 +78,7 @@ const NavigationMenuDemo = () => {
                   <a
                     className="focus:shadow-violet7 from-purple9 to-indigo9 flex
                     h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]"
-                    href="/soundRise2/play"
+                    href="/soundSpark/play"
                   >
                     <Image
                       src={"/app2.png"}
@@ -97,11 +97,11 @@ const NavigationMenuDemo = () => {
                 </NavigationMenu.Link>
               </li>
 
-              <ListItem href="/soundRise2/play" title="Play">
+              <ListItem href="/soundSpark/play" title="Play">
                 Click here to play.
               </ListItem>
-              <ListItem href="/soundRise2/about" title="Documentation" />
-              <ListItem href="/soundRise2/about" title="About Page">
+              <ListItem href="/soundSpark/about" title="Documentation" />
+              <ListItem href="/soundSpark/about" title="About Page">
                 This app uses the CNN model to recognize the vowel sound.
               </ListItem>
             </ul>

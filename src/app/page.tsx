@@ -16,12 +16,12 @@ export default function Home() {
           link={"./soundRise"}
         />
         <FlipCard
-          title={"Train with AI"}
-          playLink={"./soundRise2/play"}
+          title={"SoundSpark"}
+          playLink={"./soundSpark/play"}
           imgUrl={"/app2.png"}
-          link={"./soundRise2"}
+          link={"./soundSpark"}
           description={
-            "This app uses the CNN model to recognize the vowel sound."
+            "SoundSpark uses the CNN model to recognize the vowel sound."
           }
           keywords={["CNN", "Vowel recognition"]}
         />

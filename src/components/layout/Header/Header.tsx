@@ -85,19 +85,19 @@ const Header = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>APP2</AccordionTrigger>
+                  <AccordionTrigger>SoundSpark</AccordionTrigger>
                   <AccordionContent className="grid gap-4 ml-2">
                     <div>
                       <Link
-                        href="/soundRise2/play"
+                        href="/soundSpark/play"
                         className="hover:text-themedOrange"
                       >
-                        Play App2
+                        Play SoundSpark
                       </Link>
                     </div>
                     <div>
                       <Link
-                        href="/soundRise2/about"
+                        href="/soundSpark/about"
                         className="hover:text-themedOrange"
                       >
                         About
