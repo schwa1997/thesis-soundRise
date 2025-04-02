@@ -120,34 +120,34 @@ export default function VowelRecognitionPage() {
   const startRecording = async () => {
     try {
       setRecordingError(null);
-      const stream = await navigator.mediaDevices.getUserMedia({ 
+      const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
-          channelCount: 1,         // 单声道
-          sampleRate: 48000,       // 48 kHz 采样率
-          sampleSize: 16,          // 16位
+          channelCount: 1, // 单声道
+          sampleRate: 48000, // 48 kHz 采样率
+          sampleSize: 16, // 16位
           echoCancellation: true,
           noiseSuppression: true,
-        } 
+        },
       });
-      
+
       // 创建音频上下文以便更好地控制音频属性
       const audioContext = new AudioContext({
-        sampleRate: 48000,         // 确保48 kHz采样率
+        sampleRate: 48000, // 确保48 kHz采样率
       });
-      
+
       // 创建媒体流源
       const source = audioContext.createMediaStreamSource(stream);
-      
+
       // 创建录音处理器
       const processor = audioContext.createScriptProcessor(4096, 1, 1);
-      
+
       const audioChunks: BlobPart[] = [];
       let recorder: MediaRecorder;
-      
+
       try {
         // 尝试使用特定的MIME类型
         recorder = new MediaRecorder(stream, {
-          mimeType: 'audio/wav',
+          mimeType: "audio/wav",
           audioBitsPerSecond: 768000, // 768 kbps
         });
       } catch (e) {
@@ -164,21 +164,21 @@ export default function VowelRecognitionPage() {
         // 停止音频处理
         source.disconnect();
         processor.disconnect();
-        
+
         // 创建初始blob
         const rawBlob = new Blob(audioChunks);
-        
+
         // 转换为WAV格式，确保正确的属性
         // 注意：这里简化了处理，实际上可能需要更复杂的WAV转换库
-        const audioBlob = new Blob([await rawBlob.arrayBuffer()], { 
-          type: 'audio/wav' 
+        const audioBlob = new Blob([await rawBlob.arrayBuffer()], {
+          type: "audio/wav",
         });
-        
+
         setRecordedBlob(audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
         setRecordedAudio(audioUrl);
         setAudioUrl(audioUrl);
-        
+
         console.log("Recording completed, blob type:", audioBlob.type);
         console.log("Audio properties: 48kHz, 16-bit, mono");
       });
@@ -186,7 +186,7 @@ export default function VowelRecognitionPage() {
       // 连接音频节点
       source.connect(processor);
       processor.connect(audioContext.destination);
-      
+
       setMediaRecorder(recorder);
       recorder.start();
       setIsRecording(true);
@@ -210,7 +210,7 @@ export default function VowelRecognitionPage() {
     if (recordedBlob) {
       // 这里可以添加更复杂的WAV头部修改逻辑，以确保正确的采样率等属性
       // 但这需要使用专门的音频处理库
-      
+
       const url = URL.createObjectURL(recordedBlob);
       const a = document.createElement("a");
       a.style.display = "none";
